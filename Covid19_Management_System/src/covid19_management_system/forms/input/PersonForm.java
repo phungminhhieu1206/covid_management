@@ -47,7 +47,7 @@ public class PersonForm extends javax.swing.JFrame {
         jTextPersonID.setText(null);
         jTextPersonName.setText(null);
         jDateChooserPersonBirthday.setDate(new Date());
-        jComboBoxPersonGender.setSelectedItem("Nam");
+        jComboBoxPersonGender.setSelectedIndex(0);
         bg.clearSelection();
         jTextFieldPersonMSYT.setText(null);
         jTextFieldPersonCMT.setText(null);
@@ -188,7 +188,7 @@ public class PersonForm extends javax.swing.JFrame {
         );
 
         jComboBoxPersonGender.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jComboBoxPersonGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jComboBoxPersonGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Chọn giới tính -", "Nam", "Nữ", "Khác" }));
         jComboBoxPersonGender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxPersonGenderActionPerformed(evt);
@@ -297,11 +297,11 @@ public class PersonForm extends javax.swing.JFrame {
                                     .addComponent(jLabel14))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jComboBoxPersonGender, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addComponent(jComboBoxPersonGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(12, 12, 12)

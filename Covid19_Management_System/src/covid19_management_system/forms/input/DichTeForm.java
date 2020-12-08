@@ -56,7 +56,7 @@ public class DichTeForm extends javax.swing.JFrame {
         jTextPersonCMT.setText(null);
         jTextPersonName.setText(null);
         jDateChooserPersonBirthday.setDate(new Date());
-        jComboBoxPersonGender.setSelectedItem("Nam");
+        jComboBoxPersonGender.setSelectedIndex(0);
         jTextFieldPersonPhone.setText(null);
         jTextFieldPersonGmail.setText(null);
         jTextAreaPersonAddress.setText(null);
@@ -317,9 +317,9 @@ public class DichTeForm extends javax.swing.JFrame {
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 591, -1, -1));
 
         jComboBoxPersonGender.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBoxPersonGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jComboBoxPersonGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Chọn giới tính -", "Nam", "Nữ", "Khác" }));
         jComboBoxPersonGender.setToolTipText("");
-        jPanel1.add(jComboBoxPersonGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 301, 159, -1));
+        jPanel1.add(jComboBoxPersonGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 301, 170, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));

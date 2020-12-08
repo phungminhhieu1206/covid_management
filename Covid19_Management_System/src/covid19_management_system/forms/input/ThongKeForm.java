@@ -191,7 +191,7 @@ public class ThongKeForm extends javax.swing.JFrame {
         
         // open the manage clients form
         DichTeForm dichTeForm = new DichTeForm();
-        dichTeForm.setSize(1238, 867);
+        dichTeForm.setSize(1238, 900);
         dichTeForm.setVisible(true);
 //        dichTeForm.pack();
         dichTeForm.setLocationRelativeTo(null);

@@ -5,6 +5,20 @@
  */
 package covid19_management_system.forms.input;
 
+import covid19_management_system.MY_CONNECTION;
+import covid19_management_system.entity.DichTe;
+import covid19_management_system.entity.Person;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HieuPhung
@@ -14,8 +28,46 @@ public class CachLyForm extends javax.swing.JFrame {
     /**
      * Creates new form CachLy
      */
+    Person person = new Person();
+    DichTe dichTe = new DichTe();
+    MY_CONNECTION my_connection = new MY_CONNECTION();
+    ButtonGroup bgBHYT = new ButtonGroup();
+    
     public CachLyForm() {
         initComponents();
+        
+        bgBHYT.add(jRadioButtonPersonBHYT_YES);
+        bgBHYT.add(jRadioButtonPersonBHYT_NO);
+    }
+    
+    public void clearFiles() {
+        
+        // remove text from all jtextfields
+        jTextPersonCMT.setText(null);
+        jTextPersonName.setText(null);
+        jDateChooserPersonBirthday.setDate(new Date());
+        jComboBoxPersonGender.setSelectedIndex(0);
+        jTextFieldPersonPhone.setText(null);
+        jTextFieldPersonGmail.setText(null);
+        jTextAreaPersonAddress.setText(null);
+        bgBHYT.clearSelection();
+        jTextFieldPersonMSYT.setText(null);
+        
+        jDateNgayKhai.setDate(new Date());
+        
+        jComboBoxCachLyType.setSelectedIndex(0);
+        jComboBoxCachLyLevel.setSelectedIndex(0);
+        jDateCachLyDateStart.setDate(new Date());
+        jTextAreaCachLyAddress.setText(null);
+        jTextFieldCachLyRoomNum.setText(null);
+        jTextFieldCachLyBedNum.setText(null);
+        jTextFCachLyRoommateName.setText(null);
+        
+        jDateChooserTestDate.setDate(new Date());
+        jTextFieldTestTime.setText(null);
+        jComboBoxTestForm.setSelectedIndex(0);
+        jTextFieldTestAddress.setText(null);
+        jComboBoxTestResult.setSelectedIndex(0);
     }
 
     /**
@@ -38,7 +90,7 @@ public class CachLyForm extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jRadioButtonPersonBHYT_YES = new javax.swing.JRadioButton();
         jRadioButtonPersonBHYT_NO = new javax.swing.JRadioButton();
-        jComboBoxPersonSex = new javax.swing.JComboBox<>();
+        jComboBoxPersonGender = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaPersonAddress = new javax.swing.JTextArea();
@@ -46,7 +98,7 @@ public class CachLyForm extends javax.swing.JFrame {
         jButtonADD = new javax.swing.JButton();
         jButtonREMOVE = new javax.swing.JButton();
         jButtonCLEAR = new javax.swing.JButton();
-        jTextPersonName = new javax.swing.JTextField();
+        jTextPersonCMT = new javax.swing.JTextField();
         jDateChooserPersonBirthday = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
         jTextFieldPersonMSYT = new javax.swing.JTextField();
@@ -54,43 +106,46 @@ public class CachLyForm extends javax.swing.JFrame {
         jButtonSEARCH = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextPersonName1 = new javax.swing.JTextField();
+        jTextPersonName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBoxPersonSex1 = new javax.swing.JComboBox<>();
+        jComboBoxCachLyType = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
-        jComboBoxPersonSex2 = new javax.swing.JComboBox<>();
+        jComboBoxCachLyLevel = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
-        jDateChooserPersonBirthday1 = new com.toedter.calendar.JDateChooser();
+        jDateCachLyDateStart = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaPersonAddress1 = new javax.swing.JTextArea();
+        jTextAreaCachLyAddress = new javax.swing.JTextArea();
         jLabel21 = new javax.swing.JLabel();
-        jTextFieldPersonMSYT1 = new javax.swing.JTextField();
-        jTextFieldPersonMSYT2 = new javax.swing.JTextField();
+        jTextFieldCachLyRoomNum = new javax.swing.JTextField();
+        jTextFieldCachLyBedNum = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jTextFieldPersonMSYT3 = new javax.swing.JTextField();
+        jTextFCachLyRoommateName = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
-        jDateChooserPersonBirthday2 = new com.toedter.calendar.JDateChooser();
+        jDateChooserTestDate = new com.toedter.calendar.JDateChooser();
         jLabel25 = new javax.swing.JLabel();
-        jTextFieldPersonMSYT4 = new javax.swing.JTextField();
+        jTextFieldTestTime = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        jComboBoxPersonSex3 = new javax.swing.JComboBox<>();
+        jComboBoxTestForm = new javax.swing.JComboBox<>();
         jLabel27 = new javax.swing.JLabel();
-        jTextFieldPersonMSYT5 = new javax.swing.JTextField();
+        jTextFieldTestAddress = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
-        jComboBoxPersonSex4 = new javax.swing.JComboBox<>();
+        jComboBoxTestResult = new javax.swing.JComboBox<>();
+        jLabel29 = new javax.swing.JLabel();
+        jDateNgayKhai = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 0, 102));
 
@@ -115,21 +170,28 @@ public class CachLyForm extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1238, -1));
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("CMT/CCCD:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 173, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Số điện thoại: ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, -1));
 
         jTextFieldPersonPhone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(jTextFieldPersonPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 298, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Gmail: ");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, -1, -1));
 
         jTextFieldPersonGmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(jTextFieldPersonGmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 298, -1));
 
         jPanel4.setBackground(new java.awt.Color(51, 0, 204));
 
@@ -159,108 +221,146 @@ public class CachLyForm extends javax.swing.JFrame {
                 .addComponent(jRadioButtonPersonBHYT_NO))
         );
 
-        jComboBoxPersonSex.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 580, -1, -1));
+
+        jComboBoxPersonGender.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxPersonGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Chọn giới tính -", "Nam", "Nữ", "Khác" }));
+        jPanel1.add(jComboBoxPersonGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 170, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Địa chỉ: ");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, -1, -1));
 
         jTextAreaPersonAddress.setColumns(20);
         jTextAreaPersonAddress.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         jTextAreaPersonAddress.setRows(5);
         jScrollPane1.setViewportView(jTextAreaPersonAddress);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 298, 150));
+
         jButtonEDIT.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonEDIT.setText("Sửa");
+        jPanel1.add(jButtonEDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(598, 735, 86, 45));
 
         jButtonADD.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonADD.setText("Thêm mới");
+        jPanel1.add(jButtonADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 735, 141, 45));
 
         jButtonREMOVE.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonREMOVE.setText("Xóa");
+        jPanel1.add(jButtonREMOVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 735, 87, 45));
 
         jButtonCLEAR.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonCLEAR.setText("Làm mới");
+        jButtonCLEAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCLEARActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCLEAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 735, 145, 45));
 
-        jTextPersonName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextPersonCMT.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(jTextPersonCMT, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 298, -1));
 
+        jDateChooserPersonBirthday.setDateFormatString("dd/MM/yyyy");
         jDateChooserPersonBirthday.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(jDateChooserPersonBirthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 300, 30));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Thẻ BHYT: ");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 580, -1, -1));
 
         jTextFieldPersonMSYT.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(jTextFieldPersonMSYT, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, 299, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Mã số thẻ: ");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 620, -1, -1));
 
         jButtonSEARCH.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonSEARCH.setText("Tìm kiếm");
+        jButtonSEARCH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSEARCHActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonSEARCH, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 735, 141, 45));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("THÔNG TIN NGƯỜI KHAI:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 119, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Họ và tên:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
 
-        jTextPersonName1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextPersonName1.addActionListener(new java.awt.event.ActionListener() {
+        jTextPersonName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextPersonName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextPersonName1ActionPerformed(evt);
+                jTextPersonNameActionPerformed(evt);
             }
         });
+        jPanel1.add(jTextPersonName, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 298, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Ngày sinh:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, 42));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Giới tính:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 28));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("KHAI BÁO CÁCH LY:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(683, 119, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Thông tin cách ly:");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, -1, -1));
 
         jPanel7.setBackground(new java.awt.Color(153, 153, 255));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel13.setText("Loại cách ly:");
 
-        jComboBoxPersonSex1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxCachLyType.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxCachLyType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Loại cách ly -", "Tập trung", "Tại nhà" }));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setText("Mức độ:");
 
-        jComboBoxPersonSex2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxCachLyLevel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxCachLyLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Mức -", "F0", "F1", "F2", "F3" }));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel19.setText("Bắt đầu:");
 
-        jDateChooserPersonBirthday1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jDateCachLyDateStart.setDateFormatString("dd/MM/yyyy");
+        jDateCachLyDateStart.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel20.setText("Địa điểm cách ly:");
 
-        jTextAreaPersonAddress1.setColumns(20);
-        jTextAreaPersonAddress1.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
-        jTextAreaPersonAddress1.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaPersonAddress1);
+        jTextAreaCachLyAddress.setColumns(20);
+        jTextAreaCachLyAddress.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        jTextAreaCachLyAddress.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaCachLyAddress);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setText("Số phòng:");
 
-        jTextFieldPersonMSYT1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldCachLyRoomNum.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTextFieldPersonMSYT2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldCachLyBedNum.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel22.setText("Số giường:");
@@ -268,7 +368,7 @@ public class CachLyForm extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel23.setText("Tên người cùng phòng:");
 
-        jTextFieldPersonMSYT3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFCachLyRoommateName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -278,37 +378,36 @@ public class CachLyForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
+                        .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxPersonSex2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooserPersonBirthday1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel7Layout.createSequentialGroup()
-                            .addComponent(jLabel23)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldPersonMSYT3))
-                        .addGroup(jPanel7Layout.createSequentialGroup()
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxPersonSex1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel20)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextFieldPersonMSYT1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel22)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextFieldPersonMSYT2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jTextFCachLyRoommateName))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxCachLyLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateCachLyDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxCachLyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldCachLyRoomNum, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldCachLyBedNum, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -317,15 +416,15 @@ public class CachLyForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBoxPersonSex1))
+                    .addComponent(jComboBoxCachLyType))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
-                        .addComponent(jComboBoxPersonSex2)
+                        .addComponent(jComboBoxCachLyLevel)
                         .addComponent(jLabel19))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jDateChooserPersonBirthday1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateCachLyDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,50 +435,56 @@ public class CachLyForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
-                            .addComponent(jTextFieldPersonMSYT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldCachLyRoomNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel23)
-                            .addComponent(jTextFieldPersonMSYT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFCachLyRoommateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
-                            .addComponent(jTextFieldPersonMSYT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldCachLyBedNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
+
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Thông tin test mẫu thử Covid19:");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, 270, -1));
 
         jPanel8.setBackground(new java.awt.Color(153, 153, 255));
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel24.setText("Thời điểm test:");
 
-        jDateChooserPersonBirthday2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jDateChooserTestDate.setDateFormatString("dd/MM/yyyy");
+        jDateChooserTestDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel25.setText("Lần:");
 
-        jTextFieldPersonMSYT4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldTestTime.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel26.setText("Hình thức test:");
 
-        jComboBoxPersonSex3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxTestForm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxTestForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Hình thức test -", "PCR", "Test nhanh" }));
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel27.setText("Nơi test:");
 
-        jTextFieldPersonMSYT5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldTestAddress.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel28.setText("Kết quả:");
 
-        jComboBoxPersonSex4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxTestResult.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBoxTestResult.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Kết quả -", "Âm tính", "Dương tính" }));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -387,29 +492,30 @@ public class CachLyForm extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel24)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooserPersonBirthday2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jDateChooserTestDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxPersonSex3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jComboBoxTestForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldPersonMSYT4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldTestTime, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldPersonMSYT5, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldTestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxPersonSex4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jComboBoxTestResult, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -419,155 +525,35 @@ public class CachLyForm extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel25)
-                        .addComponent(jTextFieldPersonMSYT4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldTestTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel24)
-                        .addComponent(jDateChooserPersonBirthday2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jDateChooserTestDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(jComboBoxPersonSex3))
+                    .addComponent(jComboBoxTestForm))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(jTextFieldPersonMSYT5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel28)
-                        .addComponent(jComboBoxPersonSex4)))
+                        .addComponent(jComboBoxTestResult))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel27)
+                        .addComponent(jTextFieldTestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel16))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jTextFieldPersonMSYT))))
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
-                            .addComponent(jTextFieldPersonGmail)
-                            .addComponent(jComboBoxPersonSex, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextPersonName1)
-                            .addComponent(jTextPersonName)
-                            .addComponent(jDateChooserPersonBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldPersonPhone))))
-                .addGap(188, 188, 188)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 81, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonSEARCH, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jButtonADD, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jButtonEDIT, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jButtonCLEAR, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jButtonREMOVE, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(252, 252, 252))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jTextPersonName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jDateChooserPersonBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxPersonSex))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextFieldPersonPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldPersonGmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel15)
-                                .addGap(59, 59, 59))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextFieldPersonMSYT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEDIT, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonADD, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonREMOVE, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCLEAR, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSEARCH, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54))
-        );
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 474, -1));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("Ngày khai:");
+        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 670, -1, -1));
+
+        jDateNgayKhai.setDateFormatString("dd/MM/yyyy");
+        jDateNgayKhai.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.add(jDateNgayKhai, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 670, 300, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -577,17 +563,126 @@ public class CachLyForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextPersonName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextPersonName1ActionPerformed
+    private void jTextPersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextPersonNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextPersonName1ActionPerformed
+    }//GEN-LAST:event_jTextPersonNameActionPerformed
+
+    private void jButtonSEARCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSEARCHActionPerformed
+        
+        String cmt = null;
+        cmt = jTextPersonCMT.getText();
+        if (cmt.trim().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Enter your CMT/CCCD to search !", "Empty CMT/CCCD", 2);
+        } else {
+
+            // search the person with person's CMT
+            if (person.searchPerson(cmt) == false) {
+                JOptionPane.showMessageDialog(rootPane, "Person not found !", "Search Person", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Thông tin cá nhân
+                String name = null;
+                String birthday = null;
+                String gender = null;
+                String bhyt = null;
+                String bhyt_num = null;
+                String phone = null;
+                String email = null;
+                String address = null;
+
+                // Thông tin dịch tễ
+                String ngayKhai = null;
+                String txBenh = null;
+                String tuVungDich = null;
+
+                
+                
+                
+//                ----- get ID Person -----
+                int idPerson = 0;
+                // connect to database to get data with cmt/cccd
+                PreparedStatement psID;
+                ResultSet rsID;
+                String searchQueryID = "SELECT `id` FROM `people` WHERE `cmt`=?";
+                try {
+                    psID = my_connection.createConnection().prepareStatement(searchQueryID);
+                    psID.setString(1, cmt);
+
+                    rsID = psID.executeQuery();
+
+                    while (rsID.next()) {
+                        idPerson = rsID.getInt(1);
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+//                ----- END get ID -----
+
+                // 1. Lấy ra thông tin cá nhân
+                PreparedStatement ps1;
+                ResultSet rs1;
+                String searchQuery1 = "SELECT `name`,`birthday`,`gender`,`bhyt`,`bhyt_num`,`phone`,`email`,`address` FROM `people` WHERE `cmt`=?";
+                try {
+                    ps1 = my_connection.createConnection().prepareStatement(searchQuery1);
+                    ps1.setString(1, cmt);
+
+                    rs1 = ps1.executeQuery();
+
+                    while (rs1.next()) {
+                        name = rs1.getString(1);
+                        birthday = rs1.getString(2);
+                        gender = rs1.getString(3);
+                        bhyt = rs1.getString(4);
+                        bhyt_num = rs1.getString(5);
+                        phone = rs1.getString(6);
+                        email = rs1.getString(7);
+                        address = rs1.getString(8);
+
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(PersonForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                jTextPersonName.setText(name);
+
+                try {
+                    Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+                    jDateChooserPersonBirthday.setDate(dateIn);
+                } catch (ParseException ex) {
+                    Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                jComboBoxPersonGender.setSelectedItem(gender);
+
+                if (bhyt.equals("Có")) {
+                    jRadioButtonPersonBHYT_YES.setSelected(true);
+                } else if (bhyt.equals("Không")) {
+                    jRadioButtonPersonBHYT_NO.setSelected(true);
+                }
+
+                jTextFieldPersonMSYT.setText(bhyt_num);
+                jTextFieldPersonPhone.setText(phone);
+                jTextFieldPersonGmail.setText(email);
+                jTextAreaPersonAddress.setText(address);
+                
+                
+            }
+        }
+        
+    }//GEN-LAST:event_jButtonSEARCHActionPerformed
+
+    private void jButtonCLEARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCLEARActionPerformed
+        
+        this.clearFiles();
+        
+    }//GEN-LAST:event_jButtonCLEARActionPerformed
 
     /**
      * @param args the command line arguments
@@ -631,14 +726,15 @@ public class CachLyForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEDIT;
     private javax.swing.JButton jButtonREMOVE;
     private javax.swing.JButton jButtonSEARCH;
-    private javax.swing.JComboBox<String> jComboBoxPersonSex;
-    private javax.swing.JComboBox<String> jComboBoxPersonSex1;
-    private javax.swing.JComboBox<String> jComboBoxPersonSex2;
-    private javax.swing.JComboBox<String> jComboBoxPersonSex3;
-    private javax.swing.JComboBox<String> jComboBoxPersonSex4;
+    private javax.swing.JComboBox<String> jComboBoxCachLyLevel;
+    private javax.swing.JComboBox<String> jComboBoxCachLyType;
+    private javax.swing.JComboBox<String> jComboBoxPersonGender;
+    private javax.swing.JComboBox<String> jComboBoxTestForm;
+    private javax.swing.JComboBox<String> jComboBoxTestResult;
+    private com.toedter.calendar.JDateChooser jDateCachLyDateStart;
     private com.toedter.calendar.JDateChooser jDateChooserPersonBirthday;
-    private com.toedter.calendar.JDateChooser jDateChooserPersonBirthday1;
-    private com.toedter.calendar.JDateChooser jDateChooserPersonBirthday2;
+    private com.toedter.calendar.JDateChooser jDateChooserTestDate;
+    private com.toedter.calendar.JDateChooser jDateNgayKhai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -659,6 +755,7 @@ public class CachLyForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -674,17 +771,17 @@ public class CachLyForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonPersonBHYT_YES;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextAreaCachLyAddress;
     private javax.swing.JTextArea jTextAreaPersonAddress;
-    private javax.swing.JTextArea jTextAreaPersonAddress1;
+    private javax.swing.JTextField jTextFCachLyRoommateName;
+    private javax.swing.JTextField jTextFieldCachLyBedNum;
+    private javax.swing.JTextField jTextFieldCachLyRoomNum;
     private javax.swing.JTextField jTextFieldPersonGmail;
     private javax.swing.JTextField jTextFieldPersonMSYT;
-    private javax.swing.JTextField jTextFieldPersonMSYT1;
-    private javax.swing.JTextField jTextFieldPersonMSYT2;
-    private javax.swing.JTextField jTextFieldPersonMSYT3;
-    private javax.swing.JTextField jTextFieldPersonMSYT4;
-    private javax.swing.JTextField jTextFieldPersonMSYT5;
     private javax.swing.JTextField jTextFieldPersonPhone;
+    private javax.swing.JTextField jTextFieldTestAddress;
+    private javax.swing.JTextField jTextFieldTestTime;
+    private javax.swing.JTextField jTextPersonCMT;
     private javax.swing.JTextField jTextPersonName;
-    private javax.swing.JTextField jTextPersonName1;
     // End of variables declaration//GEN-END:variables
 }
