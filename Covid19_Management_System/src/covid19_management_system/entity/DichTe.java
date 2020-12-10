@@ -21,7 +21,7 @@ public class DichTe {
     
     MY_CONNECTION my_connection = new MY_CONNECTION();
     
-    // create a function to add a new person
+    /* 1 - Các phương thức ADD đối tượng cho các bảng*/
     public boolean addDichTe(int idPerson, String ngayKhai, String txBenh, String tuVungDich) {
 
         PreparedStatement ps;
@@ -47,7 +47,6 @@ public class DichTe {
         
     }
     
-    // create a function to add a new person
     public boolean addTrieuChung(int idPerson, int trieuChung) {
 
         PreparedStatement ps;
@@ -71,7 +70,6 @@ public class DichTe {
         
     }
     
-    // create a function to add a new person
     public boolean addBenh(int idPerson, int idBenh) {
 
         PreparedStatement ps;
@@ -95,6 +93,7 @@ public class DichTe {
         
     }
     
+    /* 2 - Các phương thức DELETE đối tượng cho các bảng*/
     public boolean removeDichTe(int id) {
 
         PreparedStatement ps;
@@ -158,6 +157,31 @@ public class DichTe {
         
     }
     
+    /* Các phương thức chỉnh sửa */
     
+    public boolean editDichTe(int idPerson, String ngayKhai, String txBenh, String tuVungDich) {
+
+        PreparedStatement ps;
+        String updateQuery = "UPDATE `dich_te` SET `ngay_khai`=?,`tx_benh`=?,`tu_vung_dich`=? WHERE `id_person`=?";
+        
+        try {
+            // add client on mysql database
+            ps = my_connection.createConnection().prepareStatement(updateQuery);
+            
+//            // theo thu tu dau ?
+            ps.setString(1, ngayKhai);
+            ps.setString(2, txBenh);
+            ps.setString(3, tuVungDich);
+            ps.setInt(4, idPerson);
+            
+            return (ps.executeUpdate() > 0);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DichTe.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
     
 }

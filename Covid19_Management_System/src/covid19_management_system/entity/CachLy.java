@@ -11,4 +11,5 @@ package covid19_management_system.entity;
  */
 public class CachLy {
     
+    
 }

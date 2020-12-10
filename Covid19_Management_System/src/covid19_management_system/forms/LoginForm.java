@@ -81,7 +81,6 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel2.setText("Username: ");
 
         jTextFieldUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextFieldUsername.setText("hieu");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -98,7 +97,6 @@ public class LoginForm extends javax.swing.JFrame {
         });
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPasswordField1.setText("hieu");
 
         jButtonRegister.setBackground(new java.awt.Color(51, 255, 0));
         jButtonRegister.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N

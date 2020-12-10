@@ -474,7 +474,8 @@ public class PersonForm extends javax.swing.JFrame {
     private void jButtonSEARCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSEARCHActionPerformed
        
         String cmt = null;
-        cmt = jTextFieldPersonCMT.getText();
+        cmt = jTextFieldPersonCMT.getText().trim();
+        
         if (cmt.trim().equals("")){
             JOptionPane.showMessageDialog(rootPane, "Enter your CMT/CCCD to search !", "Empty CMT/CCCD", 2);
         } else {

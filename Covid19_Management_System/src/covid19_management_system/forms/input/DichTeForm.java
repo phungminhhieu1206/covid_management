@@ -88,6 +88,68 @@ public class DichTeForm extends javax.swing.JFrame {
         
         
     }
+    
+    public void addTrieuChung(int idPerson){
+        if (jCheckBoxTC1.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 1);
+        }
+        if (jCheckBoxTC2.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 2);
+        }
+        if (jCheckBoxTC3.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 3);
+        }
+        if (jCheckBoxTC4.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 4);
+        }
+        if (jCheckBoxTC5.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 5);
+        }
+        if (jCheckBoxTC6.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 6);
+        }
+        if (jCheckBoxTC7.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 7);
+        }
+        if (jCheckBoxTC8.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 8);
+        }
+        if (jCheckBoxTC9.isSelected()) {
+            dichTe.addTrieuChung(idPerson, 9);
+        }
+        
+    }
+    
+    public void addBenh(int idPerson){
+        if (jCheckBoxBenh1.isSelected()) {
+            dichTe.addBenh(idPerson, 1);
+        }
+        if (jCheckBoxBenh2.isSelected()) {
+            dichTe.addBenh(idPerson, 2);
+        }
+        if (jCheckBoxBenh3.isSelected()) {
+            dichTe.addBenh(idPerson, 3);
+        }
+        if (jCheckBoxBenh4.isSelected()) {
+            dichTe.addBenh(idPerson, 4);
+        }
+        if (jCheckBoxBenh5.isSelected()) {
+            dichTe.addBenh(idPerson, 5);
+        }
+        if (jCheckBoxBenh6.isSelected()) {
+            dichTe.addBenh(idPerson, 6);
+        }
+        if (jCheckBoxBenh7.isSelected()) {
+            dichTe.addBenh(idPerson, 7);
+        }
+        if (jCheckBoxBenh8.isSelected()) {
+            dichTe.addBenh(idPerson, 8);
+        }
+        if (jCheckBoxBenh9.isSelected()) {
+            dichTe.addBenh(idPerson, 9);
+        }
+        
+    }
 
     public void buildTC(int maTrieuChung) {
         switch (maTrieuChung) {
@@ -335,6 +397,11 @@ public class DichTeForm extends javax.swing.JFrame {
 
         jButtonEDIT.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonEDIT.setText("Sửa");
+        jButtonEDIT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEDITActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonEDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(598, 756, 86, 45));
 
         jButtonADD.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -969,62 +1036,10 @@ public class DichTeForm extends javax.swing.JFrame {
             }
 
             if (dichTe.addDichTe(idPerson, ngayKhai, txBenh, tuVungDich)) {
-                if (jCheckBoxTC1.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 1);
-                }
-                if (jCheckBoxTC2.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 2);
-                }
-                if (jCheckBoxTC3.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 3);
-                }
-                if (jCheckBoxTC4.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 4);
-                }
-                if (jCheckBoxTC5.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 5);
-                }
-                if (jCheckBoxTC6.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 6);
-                }
-                if (jCheckBoxTC7.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 7);
-                }
-                if (jCheckBoxTC8.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 8);
-                }
-                if (jCheckBoxTC9.isSelected()) {
-                    dichTe.addTrieuChung(idPerson, 9);
-                }
-
-                if (jCheckBoxBenh1.isSelected()) {
-                    dichTe.addBenh(idPerson, 1);
-                }
-                if (jCheckBoxBenh2.isSelected()) {
-                    dichTe.addBenh(idPerson, 2);
-                }
-                if (jCheckBoxBenh3.isSelected()) {
-                    dichTe.addBenh(idPerson, 3);
-                }
-                if (jCheckBoxBenh4.isSelected()) {
-                    dichTe.addBenh(idPerson, 4);
-                }
-                if (jCheckBoxBenh5.isSelected()) {
-                    dichTe.addBenh(idPerson, 5);
-                }
-                if (jCheckBoxBenh6.isSelected()) {
-                    dichTe.addBenh(idPerson, 6);
-                }
-                if (jCheckBoxBenh7.isSelected()) {
-                    dichTe.addBenh(idPerson, 7);
-                }
-                if (jCheckBoxBenh8.isSelected()) {
-                    dichTe.addBenh(idPerson, 8);
-                }
-                if (jCheckBoxBenh9.isSelected()) {
-                    dichTe.addBenh(idPerson, 9);
-                }
-
+                
+                this.addTrieuChung(idPerson);
+                this.addBenh(idPerson);
+                
                 JOptionPane.showMessageDialog(rootPane, "New Dich Te added successfully !", "Add Dich Te", JOptionPane.INFORMATION_MESSAGE);
                 this.clearFiles();
 
@@ -1063,6 +1078,7 @@ public class DichTeForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // => Đến đây là có idPerson -----
         
         // Find idDichTe in khai_dich_te database
         int idDichTe = 0;
@@ -1100,6 +1116,90 @@ public class DichTeForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonREMOVEActionPerformed
+
+    private void jButtonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEDITActionPerformed
+        
+        // get idPerson from dichTe table
+        int idPerson = 0;
+        String cmt_temp = null;
+        cmt_temp = jTextPersonCMT.getText();
+        PreparedStatement ps;
+        ResultSet rs;
+        String searchQuery = "SELECT `id` FROM `people` WHERE `cmt`=?";
+        try {
+            ps = my_connection.createConnection().prepareStatement(searchQuery);
+            ps.setString(1, cmt_temp);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                idPerson = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // => Đến đây đã có idPerson -----
+        
+        // edit the dich_te database
+        try {
+
+            // date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // theo chuan cua db dang sd
+            String ngayKhai = dateFormat.format(jDateNgayKhai.getDate());
+            // radio
+            String txBenh = null;
+            if (jRBTXBenh_YES.isSelected()) {
+                txBenh = "Có";
+            }
+            if (jRBTXBenh_NO.isSelected()) {
+                txBenh = "Không";
+            }
+
+            String tuVungDich = null;
+            if (jRBTuVungDich_YES.isSelected()) {
+                tuVungDich = "Có";
+            }
+            if (jRBTuVungDich_NO.isSelected()) {
+                tuVungDich = "Không";
+            }
+            
+            // xóa trước các bảng nếu có
+            // Bắt đầu xóa !!!
+            try {
+                // trong check if duoi, da co edit database !!!
+                if (dichTe.removeTrieuChung(idPerson) && dichTe.removeBenh(idPerson)) {
+//                    JOptionPane.showMessageDialog(rootPane, "Dich Te deleted successfully !", "Remove Khai Bao DichTe", JOptionPane.INFORMATION_MESSAGE);
+//                    this.clearFiles();
+
+                } else {
+//                    JOptionPane.showMessageDialog(rootPane, "Dich Te not deleted !", "Remove Dich Te Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (NumberFormatException ex) {
+//                JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the dichTe's id (Number) !", "Dich Te Id Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            if (dichTe.editDichTe(idPerson, ngayKhai, txBenh, tuVungDich)) {
+                // thêm mới
+                this.addTrieuChung(idPerson);
+                this.addBenh(idPerson);
+                
+                JOptionPane.showMessageDialog(rootPane, "Dich Te update successfully !", "Update Dich Te", JOptionPane.INFORMATION_MESSAGE);
+                this.clearFiles();
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Dich Te Form not updated !", "Update Dich Te Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter fields number !", "Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButtonEDITActionPerformed
 
     /**
      * @param args the command line arguments

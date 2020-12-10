@@ -37,6 +37,7 @@ public class Person {
             ps.setString(1, cmt);
             rs = ps.executeQuery();
             
+            // chưa đúng lắm -> hiểu thêm
             if(rs.next()) {
                 return true;
             } else {
