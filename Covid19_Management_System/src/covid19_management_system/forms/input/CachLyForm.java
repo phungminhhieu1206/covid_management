@@ -255,6 +255,11 @@ public class CachLyForm extends javax.swing.JFrame {
 
         jButtonREMOVE.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonREMOVE.setText("Xóa");
+        jButtonREMOVE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonREMOVEActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonREMOVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 735, 87, 45));
 
         jButtonCLEAR.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -960,6 +965,66 @@ public class CachLyForm extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButtonShowTestActionPerformed
+
+    private void jButtonREMOVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonREMOVEActionPerformed
+        
+        int idPerson = 0;
+        // connect to database to get data with cmt/cccd
+        String cmt = null;
+        cmt = jTextPersonCMT.getText();
+        PreparedStatement ps;
+        ResultSet rs;
+        String searchQuery = "SELECT `id` FROM `people` WHERE `cmt`=?";
+        try {
+            ps = my_connection.createConnection().prepareStatement(searchQuery);
+            ps.setString(1, cmt);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                idPerson = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // => Đến đây là có idPerson -----
+        
+        // Find idCachLy in cach_ly database
+        int idCachLy = 0;
+        String searchQueryCachLy = "SELECT `id` FROM `cach_ly` WHERE `id_person`=?";
+        try {
+            ps = my_connection.createConnection().prepareStatement(searchQueryCachLy);
+            ps.setInt(1, idPerson);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                idCachLy = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Bắt đầu xóa !!!
+        try {
+
+            // trong check if duoi, da co edit database !!!
+            if (cachLy.removeCachLy(idCachLy)) {
+                cachLy.removeTest(idPerson);
+                JOptionPane.showMessageDialog(rootPane, "Cach Ly deleted successfully !", "Remove Khai Bao Cach Ly", JOptionPane.INFORMATION_MESSAGE);
+                this.clearFiles();
+                
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Cach Ly not deleted !", "Remove Cach Ly Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the cachLy's id (Number) !", "Cach Ly Id Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButtonREMOVEActionPerformed
 
     /**
      * @param args the command line arguments

@@ -77,4 +77,47 @@ public class CachLy {
         
     }
     
+    /* 2 - Các phương thức DELETE đối tượng cho các bảng*/
+    public boolean removeCachLy(int id) {
+
+        PreparedStatement ps;
+        String deleteQuery = "DELETE FROM `cach_ly` WHERE `id`=?";
+        
+        try {
+            // add client on mysql database
+            ps = my_connection.createConnection().prepareStatement(deleteQuery);
+            
+            // theo thu tu dau ?
+            ps.setInt(1, id);
+            
+            return (ps.executeUpdate() > 0);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLy.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    
+    public boolean removeTest(int idPerson) {
+
+        PreparedStatement ps;
+        String deleteQuery = "DELETE FROM `test_covid` WHERE `id_person`=?";
+        
+        try {
+            // add client on mysql database
+            ps = my_connection.createConnection().prepareStatement(deleteQuery);
+            
+            // theo thu tu dau ?
+            ps.setInt(1, idPerson);
+            
+            return (ps.executeUpdate() > 0);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    
 }
