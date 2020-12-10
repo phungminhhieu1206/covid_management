@@ -50,4 +50,31 @@ public class CachLy {
         
     }
     
+    public boolean addTestCovid(int idPerson, String dateTest, int timeTest, int formTest, String addressTest, int resultTest) {
+
+        PreparedStatement ps;
+        String addQuery = "INSERT INTO `test_covid`(`id_person`, `date_test`, `times_test`, `forms_test`, `address_test`, `result_test`) VALUES (?,?,?,?,?,?)";
+        
+        try {
+            // add client on mysql database
+            ps = my_connection.createConnection().prepareStatement(addQuery);
+            
+            // theo thu tu dau ?
+            ps.setInt(1, idPerson);
+            ps.setString(2, dateTest);
+            ps.setInt(3, timeTest);
+            ps.setInt(4, formTest);
+            ps.setString(5, addressTest);
+            ps.setInt(6, resultTest);
+            
+            return (ps.executeUpdate() > 0);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLy.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    
 }

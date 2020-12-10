@@ -494,6 +494,11 @@ public class CachLyForm extends javax.swing.JFrame {
 
         jButtonShowTest.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButtonShowTest.setText("SHOW");
+        jButtonShowTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShowTestActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -617,6 +622,13 @@ public class CachLyForm extends javax.swing.JFrame {
                 int roomN = 0;
                 int bedN = 0;
                 String nameRoommate = null;
+                
+                // Thông tin test covid
+                String dateTest = null;
+                int timeTest = 0;
+                int formTest = 0;
+                String addressTest = null;
+                int resultTest = 0;
 
 //                ----- get ID Person -----
                 int idPerson = 0;
@@ -737,12 +749,53 @@ public class CachLyForm extends javax.swing.JFrame {
                 }
                 
                 jTextAreaCachLyAddress.setText(addressCL.trim());
-                jTextFieldCachLyRoomNum.setText(Integer.valueOf(roomN).toString());
-                jTextFieldCachLyBedNum.setText(Integer.valueOf(bedN).toString());
+                jTextFieldCachLyRoomNum.setText(Integer.valueOf(roomN).toString().trim());
+                jTextFieldCachLyBedNum.setText(Integer.valueOf(bedN).toString().trim());
                 jTextFCachLyRoommateName.setText(nameRoommate.trim());
                 
                 
-                // 3. Lấy thông tin các lần test
+                // 3. Lấy thông tin lần test cuối cùng
+                PreparedStatement ps3;
+                ResultSet rs3;
+                String searchQuery3 = "SELECT `date_test`, `times_test`, `forms_test`, `address_test`, `result_test` FROM `test_covid` WHERE `id_person`=? ORDER BY `times_test` DESC LIMIT 1";
+                try {
+                    ps3 = my_connection.createConnection().prepareStatement(searchQuery3);
+                    ps3.setInt(1, idPerson);
+
+                    rs3 = ps3.executeQuery();
+
+                    while (rs3.next()) {
+                        // Thông tin test covid
+                        dateTest = rs3.getString(1);
+                        timeTest = rs3.getInt(2);
+                        formTest = rs3.getInt(3);
+                        addressTest = rs3.getString(4);
+                        resultTest = rs3.getInt(5);
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                // Đổ dữ liệu ra form cách ly
+                try {
+                    Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(dateTest);
+                    jDateChooserTestDate.setDate(dateIn);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                jTextFieldTestTime.setText(Integer.valueOf(timeTest).toString().trim());
+                
+                if(formTest != 0){
+                    jComboBoxTestForm.setSelectedIndex(formTest);
+                }
+                
+                jTextFieldTestAddress.setText(addressTest.trim());
+                
+                if(resultTest != 0){
+                    jComboBoxTestResult.setSelectedIndex(resultTest);
+                }
 
             }
         }
@@ -796,9 +849,19 @@ public class CachLyForm extends javax.swing.JFrame {
             int roomN = Integer.valueOf(jTextFieldCachLyRoomNum.getText());
             int bedN = Integer.valueOf(jTextFieldCachLyBedNum.getText());
             String nameRoommate = jTextFCachLyRoommateName.getText();
+            
+            // data test_covid
+            String dateTest = dateFormat.format(jDateChooserTestDate.getDate());
+
+            int timeTest = 0;
+            timeTest = Integer.valueOf(jTextFieldTestTime.getText());
+            int formTest = jComboBoxTestForm.getSelectedIndex();
+            
+            String addressTest = jTextFieldTestAddress.getText();
+            int resultTest = jComboBoxTestResult.getSelectedIndex();
 
             if (cachLy.addCachLy(idPerson, ngayKhaiCL, type, level, dateStart, addressCL, roomN, bedN, nameRoommate)) {
-
+                cachLy.addTestCovid(idPerson, dateTest, timeTest, formTest, addressTest, resultTest);
                 JOptionPane.showMessageDialog(rootPane, "New Cach Ly added successfully !", "Add Cach Ly", JOptionPane.INFORMATION_MESSAGE);
                 this.clearFiles();
 
@@ -808,9 +871,95 @@ public class CachLyForm extends javax.swing.JFrame {
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter fields number !", "Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
-        }
+        }  
 
     }//GEN-LAST:event_jButtonADDActionPerformed
+
+    private void jButtonShowTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowTestActionPerformed
+        
+        int timeTest = 0;
+        timeTest = Integer.valueOf(jTextFieldTestTime.getText());
+        
+        // Thông tin test covid
+        String dateTest = null;
+        int formTest = 0;
+        String addressTest = null;
+        int resultTest = 0;
+        
+        // get idPerson
+        int idPerson = 0;
+        String cmt = null;
+        cmt = jTextPersonCMT.getText();
+        if (cmt.trim().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Enter your CMT/CCCD to search !", "Empty CMT/CCCD", 2);
+        } else {
+            // search the person with person's CMT
+            if (person.searchPerson(cmt) == false) {
+                JOptionPane.showMessageDialog(rootPane, "Person not found !", "Search Person", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                PreparedStatement psID;
+                ResultSet rsID;
+                String searchQueryID = "SELECT `id` FROM `people` WHERE `cmt`=?";
+                try {
+                    psID = my_connection.createConnection().prepareStatement(searchQueryID);
+                    psID.setString(1, cmt);
+
+                    rsID = psID.executeQuery();
+
+                    while (rsID.next()) {
+                        idPerson = rsID.getInt(1);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+//        ----- get information test from test_covid database -----
+        // connect to database to get data with cmt/cccd
+        PreparedStatement ps;
+        ResultSet rs;
+        String searchQuery = "SELECT `date_test`, `forms_test`, `address_test`, `result_test` FROM `test_covid` WHERE `id_person`=? AND `times_test`=?";
+        try {
+            ps = my_connection.createConnection().prepareStatement(searchQuery);
+            ps.setInt(1, idPerson);
+            ps.setInt(2, timeTest);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                // Thông tin test covid
+                dateTest = rs.getString(1);
+                formTest = rs.getInt(2);
+                addressTest = rs.getString(3);
+                resultTest = rs.getInt(4);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // đổ dữ liệu ra form test
+        try {
+            Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(dateTest);
+            jDateChooserTestDate.setDate(dateIn);
+        } catch (ParseException ex) {
+            Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if(formTest != 0){
+            jComboBoxTestForm.setSelectedIndex(formTest);
+        }
+
+        jTextFieldTestAddress.setText(addressTest.trim());
+
+        if(resultTest != 0){
+            jComboBoxTestResult.setSelectedIndex(resultTest);
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButtonShowTestActionPerformed
 
     /**
      * @param args the command line arguments
