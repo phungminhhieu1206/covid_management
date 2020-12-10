@@ -992,8 +992,8 @@ public class DichTeForm extends javax.swing.JFrame {
 
     private void jButtonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonADDActionPerformed
 
+        // lấy idPerson
         int idPerson = 0;
-        // connect to database to get data with cmt/cccd
         String cmt = null;
         cmt = jTextPersonCMT.getText();
         PreparedStatement ps;
@@ -1012,6 +1012,7 @@ public class DichTeForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // ----- lấy xong idPerson -----
 
         try {
 

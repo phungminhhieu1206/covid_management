@@ -6,7 +6,7 @@
 package covid19_management_system.forms.input;
 
 import covid19_management_system.MY_CONNECTION;
-import covid19_management_system.entity.DichTe;
+import covid19_management_system.entity.CachLy;
 import covid19_management_system.entity.Person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,19 +29,19 @@ public class CachLyForm extends javax.swing.JFrame {
      * Creates new form CachLy
      */
     Person person = new Person();
-    DichTe dichTe = new DichTe();
+    CachLy cachLy = new CachLy();
     MY_CONNECTION my_connection = new MY_CONNECTION();
     ButtonGroup bgBHYT = new ButtonGroup();
-    
+
     public CachLyForm() {
         initComponents();
-        
+
         bgBHYT.add(jRadioButtonPersonBHYT_YES);
         bgBHYT.add(jRadioButtonPersonBHYT_NO);
     }
-    
+
     public void clearFiles() {
-        
+
         // remove text from all jtextfields
         jTextPersonCMT.setText(null);
         jTextPersonName.setText(null);
@@ -52,9 +52,9 @@ public class CachLyForm extends javax.swing.JFrame {
         jTextAreaPersonAddress.setText(null);
         bgBHYT.clearSelection();
         jTextFieldPersonMSYT.setText(null);
-        
+
         jDateNgayKhai.setDate(new Date());
-        
+
         jComboBoxCachLyType.setSelectedIndex(0);
         jComboBoxCachLyLevel.setSelectedIndex(0);
         jDateCachLyDateStart.setDate(new Date());
@@ -62,7 +62,7 @@ public class CachLyForm extends javax.swing.JFrame {
         jTextFieldCachLyRoomNum.setText(null);
         jTextFieldCachLyBedNum.setText(null);
         jTextFCachLyRoommateName.setText(null);
-        
+
         jDateChooserTestDate.setDate(new Date());
         jTextFieldTestTime.setText(null);
         jComboBoxTestForm.setSelectedIndex(0);
@@ -139,6 +139,7 @@ public class CachLyForm extends javax.swing.JFrame {
         jTextFieldTestAddress = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jComboBoxTestResult = new javax.swing.JComboBox<>();
+        jButtonShowTest = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         jDateNgayKhai = new com.toedter.calendar.JDateChooser();
 
@@ -245,6 +246,11 @@ public class CachLyForm extends javax.swing.JFrame {
 
         jButtonADD.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonADD.setText("Thêm mới");
+        jButtonADD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonADDActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 735, 141, 45));
 
         jButtonREMOVE.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -486,6 +492,9 @@ public class CachLyForm extends javax.swing.JFrame {
         jComboBoxTestResult.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jComboBoxTestResult.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Kết quả -", "Âm tính", "Dương tính" }));
 
+        jButtonShowTest.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButtonShowTest.setText("SHOW");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -505,9 +514,12 @@ public class CachLyForm extends javax.swing.JFrame {
                                 .addComponent(jComboBoxTestForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldTestTime, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldTestTime, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonShowTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -532,7 +544,8 @@ public class CachLyForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(jComboBoxTestForm))
+                    .addComponent(jComboBoxTestForm)
+                    .addComponent(jButtonShowTest))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -574,7 +587,7 @@ public class CachLyForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextPersonNameActionPerformed
 
     private void jButtonSEARCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSEARCHActionPerformed
-        
+
         String cmt = null;
         cmt = jTextPersonCMT.getText();
         if (cmt.trim().equals("")) {
@@ -595,14 +608,16 @@ public class CachLyForm extends javax.swing.JFrame {
                 String email = null;
                 String address = null;
 
-                // Thông tin dịch tễ
-                String ngayKhai = null;
-                String txBenh = null;
-                String tuVungDich = null;
+                // Thông tin cách ly
+                String ngayKhaiCL = null;
+                int type = 0;
+                int level = 0;
+                String dateStart = null;
+                String addressCL = null;
+                int roomN = 0;
+                int bedN = 0;
+                String nameRoommate = null;
 
-                
-                
-                
 //                ----- get ID Person -----
                 int idPerson = 0;
                 // connect to database to get data with cmt/cccd
@@ -618,12 +633,12 @@ public class CachLyForm extends javax.swing.JFrame {
                     while (rsID.next()) {
                         idPerson = rsID.getInt(1);
                     }
-
                 } catch (SQLException ex) {
-                    Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
 //                ----- END get ID -----
 
+                // Truy vấn và gán giá trị cho các biến
                 // 1. Lấy ra thông tin cá nhân
                 PreparedStatement ps1;
                 ResultSet rs1;
@@ -643,13 +658,13 @@ public class CachLyForm extends javax.swing.JFrame {
                         phone = rs1.getString(6);
                         email = rs1.getString(7);
                         address = rs1.getString(8);
-
                     }
 
                 } catch (SQLException ex) {
                     Logger.getLogger(PersonForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                // đổ dữ liệu ra cách trường của form
                 jTextPersonName.setText(name);
 
                 try {
@@ -671,18 +686,131 @@ public class CachLyForm extends javax.swing.JFrame {
                 jTextFieldPersonPhone.setText(phone);
                 jTextFieldPersonGmail.setText(email);
                 jTextAreaPersonAddress.setText(address);
+
+                // 2. Lấy thông tin cách ly
+                PreparedStatement ps2;
+                ResultSet rs2;
+                String searchQuery2 = "SELECT `ngay_khai_cl`, `type`, `level`, `cl_date_start`, `cl_address`, `room_num`, `bed_num`, `roommate_name` FROM `cach_ly` WHERE `id_person`=?";
+                try {
+                    ps2 = my_connection.createConnection().prepareStatement(searchQuery2);
+                    ps2.setInt(1, idPerson);
+
+                    rs2 = ps2.executeQuery();
+
+                    while (rs2.next()) {
+                        // Thông tin cách ly
+                        ngayKhaiCL = rs2.getString(1);
+                        type = rs2.getInt(2);
+                        level = rs2.getInt(3);
+                        dateStart = rs2.getString(4);
+                        addressCL = rs2.getString(5);
+                        roomN = rs2.getInt(6);
+                        bedN = rs2.getInt(7);
+                        nameRoommate = rs2.getString(8);
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                // Đổ dữ liệu ra form cách ly
+                try {
+                    Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(ngayKhaiCL);
+                    jDateNgayKhai.setDate(dateIn);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if(type != 0){
+                    jComboBoxCachLyType.setSelectedIndex(type);
+                }
+                
+                if(level != 0){
+                    jComboBoxCachLyLevel.setSelectedIndex(level);
+                }
+                
+                try {
+                    Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(dateStart);
+                    jDateCachLyDateStart.setDate(dateIn);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                jTextAreaCachLyAddress.setText(addressCL.trim());
+                jTextFieldCachLyRoomNum.setText(Integer.valueOf(roomN).toString());
+                jTextFieldCachLyBedNum.setText(Integer.valueOf(bedN).toString());
+                jTextFCachLyRoommateName.setText(nameRoommate.trim());
                 
                 
+                // 3. Lấy thông tin các lần test
+
             }
         }
-        
+
     }//GEN-LAST:event_jButtonSEARCHActionPerformed
 
     private void jButtonCLEARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCLEARActionPerformed
-        
+
         this.clearFiles();
-        
+
     }//GEN-LAST:event_jButtonCLEARActionPerformed
+
+    private void jButtonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonADDActionPerformed
+
+        // lấy idPerson
+        int idPerson = 0;
+        String cmt = null;
+        cmt = jTextPersonCMT.getText();
+        PreparedStatement ps;
+        ResultSet rs;
+        String searchQuery = "SELECT `id` FROM `people` WHERE `cmt`=?";
+        try {
+            ps = my_connection.createConnection().prepareStatement(searchQuery);
+            ps.setString(1, cmt);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                idPerson = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // ----- lấy xong idPerson -----
+
+        // add cach ly database
+        try {
+
+            // date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // theo chuan cua db dang sd
+            String ngayKhaiCL = dateFormat.format(jDateNgayKhai.getDate());
+
+            int type = jComboBoxCachLyType.getSelectedIndex();
+            int level = jComboBoxCachLyLevel.getSelectedIndex();
+
+            // date
+            String dateStart = dateFormat.format(jDateCachLyDateStart.getDate());
+
+            String addressCL = jTextAreaCachLyAddress.getText();
+            int roomN = Integer.valueOf(jTextFieldCachLyRoomNum.getText());
+            int bedN = Integer.valueOf(jTextFieldCachLyBedNum.getText());
+            String nameRoommate = jTextFCachLyRoommateName.getText();
+
+            if (cachLy.addCachLy(idPerson, ngayKhaiCL, type, level, dateStart, addressCL, roomN, bedN, nameRoommate)) {
+
+                JOptionPane.showMessageDialog(rootPane, "New Cach Ly added successfully !", "Add Cach Ly", JOptionPane.INFORMATION_MESSAGE);
+                this.clearFiles();
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Cach Ly Form not added !", "Add Cach Ly Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter fields number !", "Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButtonADDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -726,6 +854,7 @@ public class CachLyForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEDIT;
     private javax.swing.JButton jButtonREMOVE;
     private javax.swing.JButton jButtonSEARCH;
+    private javax.swing.JButton jButtonShowTest;
     private javax.swing.JComboBox<String> jComboBoxCachLyLevel;
     private javax.swing.JComboBox<String> jComboBoxCachLyType;
     private javax.swing.JComboBox<String> jComboBoxPersonGender;
