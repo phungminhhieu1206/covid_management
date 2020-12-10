@@ -34,6 +34,7 @@ public class PersonForm extends javax.swing.JFrame {
     
     public PersonForm() {
         initComponents();
+        this.setTitle("Khai thông tin cá nhân");
         
         // create a button group for the radioButtons
         

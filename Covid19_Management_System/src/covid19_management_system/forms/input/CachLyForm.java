@@ -35,6 +35,7 @@ public class CachLyForm extends javax.swing.JFrame {
 
     public CachLyForm() {
         initComponents();
+        this.setTitle("Khai báo thông tin cách ly");
 
         bgBHYT.add(jRadioButtonPersonBHYT_YES);
         bgBHYT.add(jRadioButtonPersonBHYT_NO);
