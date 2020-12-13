@@ -155,9 +155,9 @@ public class ThongKeForm extends javax.swing.JFrame {
         jLabelCLTaiNha = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabelCLTapTrung = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenuThongKe = new javax.swing.JMenu();
-        jMenuItemClearTK = new javax.swing.JMenuItem();
         jMenuDichTeForm = new javax.swing.JMenu();
         jMenuItemDichTeADD = new javax.swing.JMenuItem();
         jMenuItemDichTeSHOW = new javax.swing.JMenuItem();
@@ -243,6 +243,16 @@ public class ThongKeForm extends javax.swing.JFrame {
         jLabelCLTapTrung.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         jLabelCLTapTrung.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jButton1.setBackground(new java.awt.Color(0, 51, 204));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("LÀM MỚI");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -256,14 +266,15 @@ public class ThongKeForm extends javax.swing.JFrame {
                         .addComponent(jLabelVungDich, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(50, 50, 50)
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelNguoiBenh, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1)
-                            .addComponent(jLabel7)))
+                            .addComponent(jLabel7)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +319,9 @@ public class ThongKeForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCLTapTrung, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -327,7 +340,7 @@ public class ThongKeForm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 146, Short.MAX_VALUE))
+                .addGap(0, 110, Short.MAX_VALUE))
         );
 
         jMenuBar2.setPreferredSize(new java.awt.Dimension(446, 35));
@@ -343,16 +356,6 @@ public class ThongKeForm extends javax.swing.JFrame {
                 jMenuThongKeActionPerformed(evt);
             }
         });
-
-        jMenuItemClearTK.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItemClearTK.setText("Làm mới");
-        jMenuItemClearTK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemClearTKActionPerformed(evt);
-            }
-        });
-        jMenuThongKe.add(jMenuItemClearTK);
-
         jMenuBar2.add(jMenuThongKe);
 
         jMenuDichTeForm.setBackground(new java.awt.Color(255, 153, 0));
@@ -526,10 +529,9 @@ public class ThongKeForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuThongKeActionPerformed
 
-    private void jMenuItemClearTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClearTKActionPerformed
-
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.showResultThongKe();
-    }//GEN-LAST:event_jMenuItemClearTKActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -568,6 +570,7 @@ public class ThongKeForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -589,7 +592,6 @@ public class ThongKeForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuDichTeForm;
     private javax.swing.JMenuItem jMenuItemCachLyADD;
     private javax.swing.JMenuItem jMenuItemCachLySHOW;
-    private javax.swing.JMenuItem jMenuItemClearTK;
     private javax.swing.JMenuItem jMenuItemDichTeADD;
     private javax.swing.JMenuItem jMenuItemDichTeSHOW;
     private javax.swing.JMenuItem jMenuItemPersonADD;
