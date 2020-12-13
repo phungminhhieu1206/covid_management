@@ -810,14 +810,13 @@ public class DichTeForm extends javax.swing.JFrame {
     private void jButtonSEARCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSEARCHActionPerformed
 
         String cmt = null;
-        cmt = jTextPersonCMT.getText();
+        cmt = jTextPersonCMT.getText().trim();
         if (cmt.trim().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Enter your CMT/CCCD to search !", "Empty CMT/CCCD", 2);
+            JOptionPane.showMessageDialog(rootPane, "Hãy nhập CMT/CCCD trước khi nhấn \"Tìm kiếm\"", "CMT/CCCD đang trống", 2);
         } else {
-
             // search the person with person's CMT
             if (person.searchPerson(cmt) == false) {
-                JOptionPane.showMessageDialog(rootPane, "Person not found !", "Search Person", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Cư dân có CMT: " + cmt + " chưa được khai báo thông tin cá nhân !\nHãy tiến hành thêm mới thông tin cư dân trong mẫu \"Thông tin cư dân\"", "Tìm kiếm thông tin cư dân", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 // Thông tin cá nhân
                 String name = null;

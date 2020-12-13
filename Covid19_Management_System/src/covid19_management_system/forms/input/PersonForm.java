@@ -34,12 +34,13 @@ public class PersonForm extends javax.swing.JFrame {
     
     public PersonForm() {
         initComponents();
-        this.setTitle("Khai thông tin cá nhân");
+        this.setTitle("Tổ dân phố 7 phường La Khê - Quản lý phòng tránh Covid19 - Khai thông tin cá nhân");
         
         // create a button group for the radioButtons
-        
         bg.add(jRadioButtonPersonBHYT_YES);
         bg.add(jRadioButtonPersonBHYT_NO);
+        
+        JOptionPane.showMessageDialog(rootPane, "Nhập số CMT để tìm kiếm thông tin cư dân (Nếu có) !", "Nhập CMT/CCCD -> Tìm kiếm", 2);
     }
     
     public void clearFiles() {
@@ -478,12 +479,12 @@ public class PersonForm extends javax.swing.JFrame {
         cmt = jTextFieldPersonCMT.getText().trim();
         
         if (cmt.trim().equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Enter your CMT/CCCD to search !", "Empty CMT/CCCD", 2);
+            JOptionPane.showMessageDialog(rootPane, "Hãy nhập CMT/CCCD trước khi nhấn \"Tìm kiếm\"", "CMT/CCCD đang trống", 2);
         } else {
             
             // search the person with person's CMT
             if(person.searchPerson(cmt) == false){
-                JOptionPane.showMessageDialog(rootPane, "Person not found !", "Search Person", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Cư dân có CMT: " + cmt + " chưa được khai báo thông tin !\nHãy tiến hành thêm mới thông tin cư dân", "Tìm kiếm thông tin cư dân", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 int id = 0;
                 String name = null;

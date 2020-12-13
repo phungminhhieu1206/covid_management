@@ -243,6 +243,11 @@ public class CachLyForm extends javax.swing.JFrame {
 
         jButtonEDIT.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jButtonEDIT.setText("Sửa");
+        jButtonEDIT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEDITActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonEDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(598, 735, 86, 45));
 
         jButtonADD.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -1026,6 +1031,90 @@ public class CachLyForm extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonREMOVEActionPerformed
+
+    private void jButtonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEDITActionPerformed
+        
+        int idPerson = 0;
+        String cmt_temp = null;
+        cmt_temp = jTextPersonCMT.getText();
+        PreparedStatement ps;
+        ResultSet rs;
+        String searchQuery = "SELECT `id` FROM `people` WHERE `cmt`=?";
+        try {
+            ps = my_connection.createConnection().prepareStatement(searchQuery);
+            ps.setString(1, cmt_temp);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                idPerson = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // => Đến đây đã có idPerson -----
+        
+        // edit the dich_te database
+        try {
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // theo chuan cua db dang sd
+            String ngayKhaiCL = dateFormat.format(jDateNgayKhai.getDate());
+
+            int type = jComboBoxCachLyType.getSelectedIndex();
+            int level = jComboBoxCachLyLevel.getSelectedIndex();
+
+            // date
+            String dateStart = dateFormat.format(jDateCachLyDateStart.getDate());
+
+            String addressCL = jTextAreaCachLyAddress.getText();
+            int roomN = Integer.valueOf(jTextFieldCachLyRoomNum.getText());
+            int bedN = Integer.valueOf(jTextFieldCachLyBedNum.getText());
+            String nameRoommate = jTextFCachLyRoommateName.getText();
+            
+            // data test_covid
+            String dateTest = dateFormat.format(jDateChooserTestDate.getDate());
+
+            int timeTest = 0;
+            timeTest = Integer.valueOf(jTextFieldTestTime.getText());
+            int formTest = jComboBoxTestForm.getSelectedIndex();
+            
+            String addressTest = jTextFieldTestAddress.getText();
+            int resultTest = jComboBoxTestResult.getSelectedIndex();
+            
+            
+            // xóa trước các bảng nếu có
+            
+            try {
+                // trong check if duoi, da co edit database !!!
+                if (cachLy.removeOneTest(timeTest)) {
+//                    JOptionPane.showMessageDialog(rootPane, "Dich Te deleted successfully !", "Remove Khai Bao DichTe", JOptionPane.INFORMATION_MESSAGE);
+//                    this.clearFiles();
+
+                } else {
+//                    JOptionPane.showMessageDialog(rootPane, "Dich Te not deleted !", "Remove Dich Te Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (NumberFormatException ex) {
+//                JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the dichTe's id (Number) !", "Dich Te Id Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            // delete bảng test
+
+            // edit
+            if (cachLy.editCachLy(idPerson, ngayKhaiCL, type, level, dateStart, addressCL, roomN, bedN, nameRoommate)) {
+                // thêm mới
+                cachLy.addTestCovid(idPerson, dateTest, timeTest, formTest, addressTest, resultTest);
+                JOptionPane.showMessageDialog(rootPane, "Dich Te update successfully !", "Update Dich Te", JOptionPane.INFORMATION_MESSAGE);
+                this.clearFiles();
+                
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Dich Te Form not updated !", "Update Dich Te Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter fields number !", "Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButtonEDITActionPerformed
 
     /**
      * @param args the command line arguments

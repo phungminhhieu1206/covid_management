@@ -114,7 +114,60 @@ public class CachLy {
             return (ps.executeUpdate() > 0);
             
         } catch (SQLException ex) {
-            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CachLy.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    
+    public boolean removeOneTest(int timeTest) {
+
+        PreparedStatement ps;
+        String deleteQuery = "DELETE FROM `test_covid` WHERE `times_test`=?";
+        
+        try {
+            // add client on mysql database
+            ps = my_connection.createConnection().prepareStatement(deleteQuery);
+            
+            // theo thu tu dau ?
+            ps.setInt(1, timeTest);
+            
+            return (ps.executeUpdate() > 0);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLy.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    
+    /* Các phương thức chỉnh sửa */
+    
+    public boolean editCachLy(int idPerson, String ngayKhaiCL, int type, int level, String dateStart, String addressCL, int roomN, int bedN, String nameRoommate) {
+
+        PreparedStatement ps;
+        String updateQuery = "UPDATE `cach_ly` SET `ngay_khai_cl`=?,`type`=?,`level`=?,`cl_date_start`=?,`cl_address`=?,`room_num`=?,`bed_num`=?,`roommate_name`=? WHERE `id_person`=?";
+        
+        try {
+            // add client on mysql database
+            ps = my_connection.createConnection().prepareStatement(updateQuery);
+            
+//            // theo thu tu dau ?
+            ps.setString(1, ngayKhaiCL);
+            ps.setInt(2, type);
+            ps.setInt(3, level);
+            ps.setString(4, dateStart);
+            ps.setString(5, addressCL);
+            ps.setInt(6, roomN);
+            ps.setInt(7, bedN);
+            ps.setString(8, nameRoommate);
+            ps.setInt(9, idPerson);
+            
+            return (ps.executeUpdate() > 0);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLy.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         
