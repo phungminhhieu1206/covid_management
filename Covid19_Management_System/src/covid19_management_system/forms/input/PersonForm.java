@@ -46,7 +46,6 @@ public class PersonForm extends javax.swing.JFrame {
     public void clearFiles() {
         
         // remove text from all jtextfields
-        jTextPersonID.setText(null);
         jTextPersonName.setText(null);
         jDateChooserPersonBirthday.setDate(new Date());
         jComboBoxPersonGender.setSelectedIndex(0);
@@ -72,7 +71,6 @@ public class PersonForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldPersonCMT = new javax.swing.JTextField();
@@ -93,7 +91,6 @@ public class PersonForm extends javax.swing.JFrame {
         jButtonADD = new javax.swing.JButton();
         jButtonREMOVE = new javax.swing.JButton();
         jButtonCLEAR = new javax.swing.JButton();
-        jTextPersonID = new javax.swing.JTextField();
         jTextPersonName = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jDateChooserPersonBirthday = new com.toedter.calendar.JDateChooser();
@@ -102,6 +99,7 @@ public class PersonForm extends javax.swing.JFrame {
         jTextFieldPersonMSYT = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jButtonSEARCH = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,10 +127,6 @@ public class PersonForm extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ID:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,8 +232,6 @@ public class PersonForm extends javax.swing.JFrame {
             }
         });
 
-        jTextPersonID.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-
         jTextPersonName.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -271,6 +263,8 @@ public class PersonForm extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("SHOW DANH SÁCH NHÂN KHẨU");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -280,11 +274,7 @@ public class PersonForm extends javax.swing.JFrame {
                 .addGap(0, 75, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(105, 105, 105)
-                        .addComponent(jTextPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addGap(18, 18, 18)
@@ -307,13 +297,13 @@ public class PersonForm extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(12, 12, 12)
-                                .addComponent(jTextFieldPersonMSYT, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldPersonMSYT, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldPersonCMT)))
                         .addGap(185, 185, 185)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldPersonCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -329,7 +319,8 @@ public class PersonForm extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1))))
+                                .addComponent(jScrollPane1))
+                            .addComponent(jButton1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(134, 134, 134)
                         .addComponent(jButtonSEARCH, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,29 +340,18 @@ public class PersonForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldPersonCMT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(32, 32, 32)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                        .addGap(32, 32, 32))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldPersonHOKHAU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(34, 34, 34)))
+                .addGap(66, 66, 66)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldPersonCMT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldPersonHOKHAU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -528,7 +508,6 @@ public class PersonForm extends javax.swing.JFrame {
                 
                 // đổ dữ liệu ra các trường của form:
                 
-                jTextPersonID.setText(Integer.toString(id).trim());
                 jTextPersonName.setText(name);
                 
                 // 1. set the date
@@ -568,9 +547,28 @@ public class PersonForm extends javax.swing.JFrame {
 
     private void jButtonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEDITActionPerformed
 
-        int idPerson = 0;
         try {
-            idPerson = Integer.valueOf(jTextPersonID.getText());
+            String cmt = jTextFieldPersonCMT.getText();
+        //                ----- get ID Person -----
+            int idPerson = 0;
+            // connect to database to get data with cmt/cccd
+            PreparedStatement psID;
+            ResultSet rsID;
+            String searchQueryID = "SELECT `id` FROM `people` WHERE `cmt`=?";
+            try {
+                psID = my_connection.createConnection().prepareStatement(searchQueryID);
+                psID.setString(1, cmt);
+
+                rsID = psID.executeQuery();
+
+                while (rsID.next()) {
+                    idPerson = rsID.getInt(1);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//                ----- END get ID -----
             
             String name = jTextPersonName.getText();
             // date
@@ -588,7 +586,7 @@ public class PersonForm extends javax.swing.JFrame {
             }
             
             String bhyt_num = jTextFieldPersonMSYT.getText();
-            String cmt = jTextFieldPersonCMT.getText();
+            
             String ho_khau = jTextFieldPersonHOKHAU.getText();
             String phone = jTextFieldPersonPhone.getText();
             String email = jTextFieldPersonGmail.getText();
@@ -612,7 +610,27 @@ public class PersonForm extends javax.swing.JFrame {
         
         // deleted the selected client
         try {
-            int idPerson = Integer.valueOf(jTextPersonID.getText());
+            String cmt = jTextFieldPersonCMT.getText();
+        //                ----- get ID Person -----
+            int idPerson = 0;
+            // connect to database to get data with cmt/cccd
+            PreparedStatement psID;
+            ResultSet rsID;
+            String searchQueryID = "SELECT `id` FROM `people` WHERE `cmt`=?";
+            try {
+                psID = my_connection.createConnection().prepareStatement(searchQueryID);
+                psID.setString(1, cmt);
+
+                rsID = psID.executeQuery();
+
+                while (rsID.next()) {
+                    idPerson = rsID.getInt(1);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(DichTeForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//                ----- END get ID -----
 
             // trong check if duoi, da co edit database !!!
             if (person.removePerson(idPerson)) {
@@ -665,6 +683,7 @@ public class PersonForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonADD;
     private javax.swing.JButton jButtonCLEAR;
     private javax.swing.JButton jButtonEDIT;
@@ -678,7 +697,6 @@ public class PersonForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -696,7 +714,6 @@ public class PersonForm extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPersonHOKHAU;
     private javax.swing.JTextField jTextFieldPersonMSYT;
     private javax.swing.JTextField jTextFieldPersonPhone;
-    private javax.swing.JTextField jTextPersonID;
     private javax.swing.JTextField jTextPersonName;
     // End of variables declaration//GEN-END:variables
 }

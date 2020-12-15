@@ -37,8 +37,8 @@ public class DichTeForm extends javax.swing.JFrame {
 
     public DichTeForm() {
         initComponents();
+        
         this.setTitle("Khai báo thông tin dịch tễ");
-
         setSize(1238, 880);
 
         bgBHYT.add(jRadioButtonPersonBHYT_YES);
