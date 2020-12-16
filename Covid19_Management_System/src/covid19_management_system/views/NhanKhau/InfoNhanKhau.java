@@ -7,11 +7,15 @@ package covid19_management_system.views.NhanKhau;
 
 import covid19_management_system.controllers.nhankhauController.ShowInfoNhanKhauController;
 import covid19_management_system.models.NhanKhauModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,6 +36,17 @@ public class InfoNhanKhau extends javax.swing.JFrame {
         this.setTitle("Nhân khẩu có CMT: " + this.chungMinhThu);
         
         this.searchAllInfoNhanKhau();
+        
+        // confirm de thuc hien dong
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đóng không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
+                    dispose();
+                }
+            }
+        });
     }
     
     public void searchAllInfoNhanKhau() {

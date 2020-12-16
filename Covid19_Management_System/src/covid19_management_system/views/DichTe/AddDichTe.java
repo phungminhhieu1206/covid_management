@@ -5,8 +5,20 @@
  */
 package covid19_management_system.views.DichTe;
 
+import covid19_management_system.controllers.dichTeController.AddDichTeController;
+import covid19_management_system.controllers.nhankhauController.EditNhanKhauController;
+import covid19_management_system.models.DichTeModel;
+import covid19_management_system.models.NhanKhauModel;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -19,10 +31,28 @@ public class AddDichTe extends javax.swing.JFrame {
     /**
      * Creates new form AddDichTe
      */
+    private String chungMinhThu;
+    private int ID;
+
+    ButtonGroup bgCheckBHYT = new ButtonGroup();
+    ButtonGroup bgTXCovid = new ButtonGroup();
+    ButtonGroup bgTuVungDich = new ButtonGroup();
+    AddDichTeController addDichTeController = new AddDichTeController();
+    EditNhanKhauController editNhanKhauController = new EditNhanKhauController();
+
     public AddDichTe() {
         initComponents();
         this.setTitle("Khai báo thông tin dịch tễ cá nhân");
-        
+        this.setEnableFields(false);
+
+        // set group radio button
+        bgCheckBHYT.add(jRadioBHYT_YES);
+        bgCheckBHYT.add(jRadioBHYT_NO);
+        bgTXCovid.add(jRadioTXCovid_YES);
+        bgTXCovid.add(jRadioTXCovid_NO);
+        bgCheckBHYT.add(jRadioTuVungDich_YES);
+        bgCheckBHYT.add(jRadioTuVungDich_NO);
+
         // confirm de thuc hien dong
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -35,6 +65,75 @@ public class AddDichTe extends javax.swing.JFrame {
         });
     }
 
+    // first set enable->false:
+    public void setEnableFields(boolean temp) {
+        jTFHoVaTen.setEnabled(temp);
+        jDateCNgaySinh.setEnabled(temp);
+        jCoBoxGioiTinh.setEnabled(temp);
+        jTFQuocTich.setEnabled(temp);
+        jRadioBHYT_YES.setEnabled(temp);
+        jRadioBHYT_NO.setEnabled(temp);
+        jTFMaTheBHYT.setEnabled(temp);
+        jTFSoDienThoai.setEnabled(temp);
+        jTFEmail.setEnabled(temp);
+        jTFDiaChi.setEnabled(temp);
+        jDateCNgayKhaiDichTe.setEnabled(temp);
+        jRadioTXCovid_NO.setEnabled(temp);
+        jRadioTXCovid_YES.setEnabled(temp);
+        jRadioTuVungDich_NO.setEnabled(temp);
+        jRadioTuVungDich_YES.setEnabled(temp);
+
+        jCheckBoxTC1.setEnabled(temp);
+        jCheckBoxTC2.setEnabled(temp);
+        jCheckBoxTC3.setEnabled(temp);
+        jCheckBoxTC4.setEnabled(temp);
+        jCheckBoxTC5.setEnabled(temp);
+        jCheckBoxTC6.setEnabled(temp);
+        jCheckBoxTC7.setEnabled(temp);
+        jCheckBoxTC8.setEnabled(temp);
+        jCheckBoxTC9.setEnabled(temp);
+
+        jCheckBoxBenh1.setEnabled(temp);
+        jCheckBoxBenh2.setEnabled(temp);
+        jCheckBoxBenh3.setEnabled(temp);
+        jCheckBoxBenh4.setEnabled(temp);
+        jCheckBoxBenh5.setEnabled(temp);
+        jCheckBoxBenh6.setEnabled(temp);
+        jCheckBoxBenh7.setEnabled(temp);
+        jCheckBoxBenh8.setEnabled(temp);
+        jCheckBoxBenh9.setEnabled(temp);
+
+    }
+
+    public void setEnableDichTeFields(boolean temp) {
+        jDateCNgayKhaiDichTe.setEnabled(temp);
+        jRadioTXCovid_NO.setEnabled(temp);
+        jRadioTXCovid_YES.setEnabled(temp);
+        jRadioTuVungDich_NO.setEnabled(temp);
+        jRadioTuVungDich_YES.setEnabled(temp);
+
+        jCheckBoxTC1.setEnabled(temp);
+        jCheckBoxTC2.setEnabled(temp);
+        jCheckBoxTC3.setEnabled(temp);
+        jCheckBoxTC4.setEnabled(temp);
+        jCheckBoxTC5.setEnabled(temp);
+        jCheckBoxTC6.setEnabled(temp);
+        jCheckBoxTC7.setEnabled(temp);
+        jCheckBoxTC8.setEnabled(temp);
+        jCheckBoxTC9.setEnabled(temp);
+
+        jCheckBoxBenh1.setEnabled(temp);
+        jCheckBoxBenh2.setEnabled(temp);
+        jCheckBoxBenh3.setEnabled(temp);
+        jCheckBoxBenh4.setEnabled(temp);
+        jCheckBoxBenh5.setEnabled(temp);
+        jCheckBoxBenh6.setEnabled(temp);
+        jCheckBoxBenh7.setEnabled(temp);
+        jCheckBoxBenh8.setEnabled(temp);
+        jCheckBoxBenh9.setEnabled(temp);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,13 +143,14 @@ public class AddDichTe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel21 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelKhaiBao = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTFCMT = new javax.swing.JTextField();
+        jTFChungMinhThu = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTFHoVaTen = new javax.swing.JTextField();
@@ -65,7 +165,7 @@ public class AddDichTe extends javax.swing.JFrame {
         jTFQuocTich = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTFSĐT = new javax.swing.JTextField();
+        jTFSoDienThoai = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jTFDiaChi = new javax.swing.JTextField();
@@ -77,21 +177,24 @@ public class AddDichTe extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jTFMaTheBHYT = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        jButtonAddDichTe = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jTFEmail = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jDateCNgaySinh1 = new com.toedter.calendar.JDateChooser();
+        jDateCNgayKhaiDichTe = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jRadioBHYT_YES1 = new javax.swing.JRadioButton();
-        jRadioBHYT_YES2 = new javax.swing.JRadioButton();
+        jRadioTXCovid_YES = new javax.swing.JRadioButton();
+        jRadioTXCovid_NO = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
-        jRadioBHYT_YES3 = new javax.swing.JRadioButton();
-        jRadioBHYT_YES4 = new javax.swing.JRadioButton();
+        jRadioTuVungDich_NO = new javax.swing.JRadioButton();
+        jRadioTuVungDich_YES = new javax.swing.JRadioButton();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jCheckBoxTC1 = new javax.swing.JCheckBox();
         jCheckBoxTC2 = new javax.swing.JCheckBox();
@@ -114,6 +217,10 @@ public class AddDichTe extends javax.swing.JFrame {
         jCheckBoxBenh8 = new javax.swing.JCheckBox();
         jCheckBoxBenh9 = new javax.swing.JCheckBox();
         jLabel16 = new javax.swing.JLabel();
+
+        jLabel21.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel21.setText("(*)");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,12 +246,25 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        jPanelKhaiBao.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("CMT:");
 
-        jTFCMT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFChungMinhThu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFChungMinhThu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTFChungMinhThuMouseEntered(evt);
+            }
+        });
+        jTFChungMinhThu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTFChungMinhThuKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFChungMinhThuKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -154,7 +274,7 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTFCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFChungMinhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11))
         );
         jPanel4Layout.setVerticalGroup(
@@ -163,7 +283,7 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTFCMT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFChungMinhThu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -196,6 +316,8 @@ public class AddDichTe extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Ngày sinh:");
 
+        jDateCNgaySinh.setDateFormatString("dd/MM/yyyy");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -220,7 +342,7 @@ public class AddDichTe extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Giới tính:");
 
-        jCoBoxGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jCoBoxGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Chọn giới tính -", "Nam", "Nữ", "Khác" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -230,7 +352,7 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(37, 37, 37)
-                .addComponent(jCoBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCoBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -272,7 +394,7 @@ public class AddDichTe extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("SĐT:");
 
-        jTFSĐT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFSoDienThoai.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -282,7 +404,7 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTFSĐT, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -291,7 +413,7 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTFSĐT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -380,10 +502,10 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton2.setText("CREATE");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAddDichTe.setText("CREATE");
+        jButtonAddDichTe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonAddDichTeActionPerformed(evt);
             }
         });
 
@@ -400,7 +522,7 @@ public class AddDichTe extends javax.swing.JFrame {
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jButtonAddDichTe)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -411,7 +533,7 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonAddDichTe))
                 .addContainerGap())
         );
 
@@ -446,26 +568,40 @@ public class AddDichTe extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Ngày khai:");
 
+        jDateCNgayKhaiDichTe.setDateFormatString("dd/MM/yyyy");
+
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Trong vòng 14 ngày qua anh/chị có:");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("- Tiếp xúc với người bệnh Covid không ?");
 
-        jRadioBHYT_YES1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioBHYT_YES1.setText("CÓ");
+        jRadioTXCovid_YES.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jRadioTXCovid_YES.setText("CÓ");
 
-        jRadioBHYT_YES2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioBHYT_YES2.setText("KHÔNG");
+        jRadioTXCovid_NO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jRadioTXCovid_NO.setText("KHÔNG");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("- Đi về từ vùng dịch Covid không ?");
 
-        jRadioBHYT_YES3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioBHYT_YES3.setText("KHÔNG");
+        jRadioTuVungDich_NO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jRadioTuVungDich_NO.setText("KHÔNG");
 
-        jRadioBHYT_YES4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jRadioBHYT_YES4.setText("CÓ");
+        jRadioTuVungDich_YES.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jRadioTuVungDich_YES.setText("CÓ");
+
+        jLabel22.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel22.setText("(*)");
+
+        jLabel23.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel23.setText("(*)");
+
+        jLabel24.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel24.setText("(*)");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -477,48 +613,57 @@ public class AddDichTe extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jLabel6)
                         .addGap(17, 17, 17)
-                        .addComponent(jDateCNgaySinh1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateCNgayKhaiDichTe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel22))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel8Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jRadioBHYT_YES1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jRadioBHYT_YES2)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jRadioBHYT_YES4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioBHYT_YES3)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jRadioTuVungDich_YES)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioTuVungDich_NO)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel24))
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(jRadioTXCovid_YES)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioTXCovid_NO)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel23)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateCNgaySinh1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDateCNgayKhaiDichTe, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioBHYT_YES1)
-                    .addComponent(jRadioBHYT_YES2))
+                    .addComponent(jRadioTXCovid_YES)
+                    .addComponent(jRadioTXCovid_NO)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioBHYT_YES4)
-                    .addComponent(jRadioBHYT_YES3))
+                    .addComponent(jRadioTuVungDich_YES)
+                    .addComponent(jRadioTuVungDich_NO)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -702,7 +847,7 @@ public class AddDichTe extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBoxBenh1)
@@ -721,69 +866,68 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addGap(42, 42, 42))
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelKhaiBaoLayout = new javax.swing.GroupLayout(jPanelKhaiBao);
+        jPanelKhaiBao.setLayout(jPanelKhaiBaoLayout);
+        jPanelKhaiBaoLayout.setHorizontalGroup(
+            jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelKhaiBaoLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelKhaiBaoLayout.createSequentialGroup()
+                        .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanelKhaiBaoLayout.setVerticalGroup(
+            jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelKhaiBaoLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelKhaiBaoLayout.createSequentialGroup()
+                        .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelKhaiBaoLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanelKhaiBaoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelKhaiBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanelKhaiBaoLayout.createSequentialGroup()
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(11, 11, 11)
                                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(55, 55, 55)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -797,7 +941,7 @@ public class AddDichTe extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelKhaiBao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -805,7 +949,7 @@ public class AddDichTe extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelKhaiBao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -823,9 +967,124 @@ public class AddDichTe extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonAddDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddDichTeActionPerformed
+        if (jTFHoVaTen.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Chưa hiện thông tin nhân khẩu\nNhập CMT để thực hiện tìm kiểm trước !", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        if (!(jTFHoVaTen.getText().trim().isEmpty())) {
+            if (validateValueInForm()) {
+                this.chungMinhThu = jTFChungMinhThu.getText().trim();
+                this.ID = editNhanKhauController.searchIDFromCMT(chungMinhThu);
+//        System.out.println(this.ID);
+                // 
+                DichTeModel dichTeModel = new DichTeModel();
+                dichTeModel.setID_PERSON(this.ID);
+                // date
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // theo chuan cua db dang sd
+                dichTeModel.setNgayKhaiDichTeStr(dateFormat.format(jDateCNgayKhaiDichTe.getDate()));
+                dichTeModel.setNgayKhaiDichTe(jDateCNgayKhaiDichTe.getDate());
+                // radio
+                if (jRadioTXCovid_YES.isSelected()) {
+                    dichTeModel.setTxCovid(1);
+                } else if (jRadioTXCovid_NO.isSelected()) {
+                    dichTeModel.setTxCovid(0);
+                }
+                if (jRadioTuVungDich_YES.isSelected()) {
+                    dichTeModel.setTuVungDich(1);
+                } else if (jRadioTuVungDich_NO.isSelected()) {
+                    dichTeModel.setTuVungDich(0);
+                }
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+                try {
+                    if (addDichTeController.addDichTe(dichTeModel)) {
+                        this.addTrieuChung(ID);
+                        this.addBenh(ID);
+
+                        JOptionPane.showMessageDialog(rootPane, "Thêm mới thành công!", "Infomation", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Lỗi. Không thêm mới được !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the person fields number !", "Person Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_jButtonAddDichTeActionPerformed
+
+    // check cac gia tri duoc nhap vao form
+    private boolean validateValueInForm() {
+
+        // check null
+        if ((!jRadioTXCovid_YES.isSelected() && !jRadioTXCovid_NO.isSelected())
+                || (!jRadioTuVungDich_YES.isSelected() && !jRadioTuVungDich_NO.isSelected())) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập hết các trường bắt buộc", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public void addTrieuChung(int idPerson) {
+        if (jCheckBoxTC1.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 1);
+        }
+        if (jCheckBoxTC2.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 2);
+        }
+        if (jCheckBoxTC3.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 3);
+        }
+        if (jCheckBoxTC4.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 4);
+        }
+        if (jCheckBoxTC5.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 5);
+        }
+        if (jCheckBoxTC6.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 6);
+        }
+        if (jCheckBoxTC7.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 7);
+        }
+        if (jCheckBoxTC8.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 8);
+        }
+        if (jCheckBoxTC9.isSelected()) {
+            addDichTeController.addTrieuChung(idPerson, 9);
+        }
+    }
+
+    public void addBenh(int idPerson) {
+        if (jCheckBoxBenh1.isSelected()) {
+            addDichTeController.addBenh(idPerson, 1);
+        }
+        if (jCheckBoxBenh2.isSelected()) {
+            addDichTeController.addBenh(idPerson, 2);
+        }
+        if (jCheckBoxBenh3.isSelected()) {
+            addDichTeController.addBenh(idPerson, 3);
+        }
+        if (jCheckBoxBenh4.isSelected()) {
+            addDichTeController.addBenh(idPerson, 4);
+        }
+        if (jCheckBoxBenh5.isSelected()) {
+            addDichTeController.addBenh(idPerson, 5);
+        }
+        if (jCheckBoxBenh6.isSelected()) {
+            addDichTeController.addBenh(idPerson, 6);
+        }
+        if (jCheckBoxBenh7.isSelected()) {
+            addDichTeController.addBenh(idPerson, 7);
+        }
+        if (jCheckBoxBenh8.isSelected()) {
+            addDichTeController.addBenh(idPerson, 8);
+        }
+        if (jCheckBoxBenh9.isSelected()) {
+            addDichTeController.addBenh(idPerson, 9);
+        }
+
+    }
 
     private void jCheckBoxTC3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTC3ActionPerformed
         // TODO add your handling code here:
@@ -860,6 +1119,86 @@ public class AddDichTe extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTFChungMinhThuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFChungMinhThuMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFChungMinhThuMouseEntered
+
+    private void jTFChungMinhThuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFChungMinhThuKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (checkDesignCMT()) {
+                chungMinhThu = jTFChungMinhThu.getText().trim();
+                if (addDichTeController.searchInFromCMT(chungMinhThu) == false) {
+                    JOptionPane.showMessageDialog(rootPane, "Số CMT chưa khai báo\nVào mục \"Nhân khẩu\" để thêm mới thông tin.", "Infomation", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                } else {
+                    // tìm thấy
+                    if (JOptionPane.showConfirmDialog(null, "Tìm thấy. Có muốn thực hiện khai báo dịch tễ\nvới nhân khẩu có CMT: " + chungMinhThu + " không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
+                        NhanKhauModel nhanKhauModel = new NhanKhauModel();
+                        nhanKhauModel = editNhanKhauController.searchAllInfoNhanKhau(chungMinhThu);
+                        jTFChungMinhThu.setBackground(Color.GRAY);
+                        jTFChungMinhThu.setEditable(false);
+                        jTFHoVaTen.setText(nhanKhauModel.getHoTen().trim());
+                        jTFHoVaTen.setBackground(Color.gray);
+                        // date db to form
+                        try {
+                            Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(nhanKhauModel.getNgaySinh().toString());
+                            jDateCNgaySinh.setDate(dateIn);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(AddDichTe.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        // combobox
+                        jCoBoxGioiTinh.setSelectedIndex(nhanKhauModel.getGioiTinh());
+                        jTFQuocTich.setText(nhanKhauModel.getQuocTich().trim());
+                        jTFSoDienThoai.setText(nhanKhauModel.getSoDienThoai().trim());
+                        jTFEmail.setText(nhanKhauModel.getEmail().trim());
+                        jTFDiaChi.setText(nhanKhauModel.getDiaChi().trim());
+                        // radio
+                        jRadioBHYT_YES.setEnabled(true);
+                        jRadioBHYT_NO.setEnabled(true);
+                        if (nhanKhauModel.getCheckBHYT() == 1) {
+                            jRadioBHYT_YES.setSelected(true);
+                        } else if (nhanKhauModel.getCheckBHYT() == 0) {
+                            jRadioBHYT_NO.setSelected(true);
+                        }
+                        jTFMaTheBHYT.setText(nhanKhauModel.getMaTheBHYT().trim());
+                        jRadioBHYT_YES.setEnabled(false);
+                        jRadioBHYT_NO.setEnabled(false);
+
+                        this.setEnableDichTeFields(true);
+                    }
+
+                    return;
+                }
+            }
+        }
+    }//GEN-LAST:event_jTFChungMinhThuKeyPressed
+
+    private void jTFChungMinhThuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFChungMinhThuKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFChungMinhThuKeyReleased
+
+    // check cac gia tri duoc nhap vao form
+    private boolean checkDesignCMT() {
+        // check null
+        if (jTFChungMinhThu.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Nhập CMT và nhấn Enter để tìm kiếm", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        // check dinh dang so chung minh thu
+        try {
+            long d = Long.parseLong(jTFChungMinhThu.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Số CMT không thể chứa các ký tự chữ cái", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        // kiem tra do dai cmt
+        if (jTFChungMinhThu.getText().length() != 9 && jTFChungMinhThu.getText().length() != 12) {
+            JOptionPane.showMessageDialog(rootPane, "Số CMT có 9 hoặc 12 số", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
@@ -897,8 +1236,8 @@ public class AddDichTe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAddDichTe;
     private javax.swing.JCheckBox jCheckBoxBenh1;
     private javax.swing.JCheckBox jCheckBoxBenh2;
     private javax.swing.JCheckBox jCheckBoxBenh3;
@@ -918,8 +1257,8 @@ public class AddDichTe extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxTC8;
     private javax.swing.JCheckBox jCheckBoxTC9;
     private javax.swing.JComboBox<String> jCoBoxGioiTinh;
+    private com.toedter.calendar.JDateChooser jDateCNgayKhaiDichTe;
     private com.toedter.calendar.JDateChooser jDateCNgaySinh;
-    private com.toedter.calendar.JDateChooser jDateCNgaySinh1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -929,6 +1268,10 @@ public class AddDichTe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -947,25 +1290,25 @@ public class AddDichTe extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelKhaiBao;
     private javax.swing.JRadioButton jRadioBHYT_NO;
     private javax.swing.JRadioButton jRadioBHYT_YES;
-    private javax.swing.JRadioButton jRadioBHYT_YES1;
-    private javax.swing.JRadioButton jRadioBHYT_YES2;
-    private javax.swing.JRadioButton jRadioBHYT_YES3;
-    private javax.swing.JRadioButton jRadioBHYT_YES4;
-    private javax.swing.JTextField jTFCMT;
+    private javax.swing.JRadioButton jRadioTXCovid_NO;
+    private javax.swing.JRadioButton jRadioTXCovid_YES;
+    private javax.swing.JRadioButton jRadioTuVungDich_NO;
+    private javax.swing.JRadioButton jRadioTuVungDich_YES;
+    private javax.swing.JTextField jTFChungMinhThu;
     private javax.swing.JTextField jTFDiaChi;
     private javax.swing.JTextField jTFEmail;
     private javax.swing.JTextField jTFHoVaTen;
     private javax.swing.JTextField jTFMaTheBHYT;
     private javax.swing.JTextField jTFQuocTich;
-    private javax.swing.JTextField jTFSĐT;
+    private javax.swing.JTextField jTFSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }
