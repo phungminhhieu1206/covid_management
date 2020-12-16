@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package covid19_management_system.controllers.nhankhauController;
+package covid19_management_system.models;
 
 /**
  *
  * @author HieuPhung
  */
-public class AddNewController {
+public class ThongKeModel {
     
 }

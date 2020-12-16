@@ -5,8 +5,14 @@
  */
 package covid19_management_system.views.NhanKhau;
 
+import covid19_management_system.MY_CONNECTION;
+import covid19_management_system.controllers.nhankhauController.AddNhanKhauController;
+import covid19_management_system.models.NhanKhauModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,10 +26,16 @@ public class AddNhanKhau extends javax.swing.JFrame {
     /**
      * Creates new form AddNewNhanKhau
      */
+    AddNhanKhauController addNhanKhauController = new AddNhanKhauController();
+    ButtonGroup checkBHYT = new ButtonGroup();
     
     public AddNhanKhau(){
         initComponents();
         this.setTitle("Thêm mới nhân khẩu");
+        
+        // create a button group for the radioButtons
+        checkBHYT.add(jRadioBHYT_YES);
+        checkBHYT.add(jRadioBHYT_NO);
         
         // confirm de thuc hien dong
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -52,7 +64,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTFCMT = new javax.swing.JTextField();
+        jTFChungMinhThu = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -76,7 +88,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTFSĐT = new javax.swing.JTextField();
+        jTFSoDienThoai = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -98,7 +110,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
         jTFMaTheBHYT = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAddNhanKhau = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -138,7 +150,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("CMT:");
 
-        jTFCMT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFChungMinhThu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel22.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 0, 0));
@@ -152,7 +164,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTFCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFChungMinhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel22)
                 .addContainerGap())
@@ -163,7 +175,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTFCMT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFChungMinhThu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -204,6 +216,8 @@ public class AddNhanKhau extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Ngày sinh:");
 
+        jDateCNgaySinh.setDateFormatString("dd/MM/yyyy");
+
         jLabel21.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 0, 0));
         jLabel21.setText("(*)");
@@ -235,7 +249,8 @@ public class AddNhanKhau extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Giới tính:");
 
-        jCoBoxGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        jCoBoxGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Chọn giới tính -", "Nam", "Nữ", "Khác" }));
+        jCoBoxGioiTinh.setToolTipText("");
 
         jLabel20.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 0, 0));
@@ -249,13 +264,10 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(37, 37, 37)
-                .addComponent(jCoBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCoBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel20)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(180, 180, 180)
-                    .addComponent(jLabel20)
-                    .addContainerGap(181, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,13 +275,9 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jCoBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCoBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -344,7 +352,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("SĐT:");
 
-        jTFSĐT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFSoDienThoai.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel24.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 0, 0));
@@ -358,7 +366,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTFSĐT, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel24)
                 .addContainerGap())
@@ -369,7 +377,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTFSĐT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
                 .addContainerGap())
         );
@@ -527,10 +535,10 @@ public class AddNhanKhau extends javax.swing.JFrame {
 
         jButton1.setText("KHAI HỘ KHẨU");
 
-        jButton2.setText("CREATE");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAddNhanKhau.setText("CREATE");
+        jButtonAddNhanKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonAddNhanKhauActionPerformed(evt);
             }
         });
 
@@ -549,7 +557,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 525, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jButtonAddNhanKhau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -560,7 +568,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton2)
+                    .addComponent(jButtonAddNhanKhau)
                     .addComponent(jButton1))
                 .addContainerGap())
         );
@@ -732,11 +740,91 @@ public class AddNhanKhau extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonAddNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNhanKhauActionPerformed
+        if(validateValueInForm()){
+            NhanKhauModel nhanKhauModel = new NhanKhauModel();
         
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+            nhanKhauModel.setHoTen(jTFHoVaTen.getText().trim());
+            nhanKhauModel.setChungMinhThu(jTFChungMinhThu.getText().trim());
+            // date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // theo chuan cua db dang sd
+            nhanKhauModel.setNgaySinhStr(dateFormat.format(jDateCNgaySinh.getDate()));
+            nhanKhauModel.setNgaySinh(jDateCNgaySinh.getDate());
+    //        System.out.println(nhanKhauModel.getNgaySinh());
+            // combobox
+            nhanKhauModel.setGioiTinh(jCoBoxGioiTinh.getSelectedIndex());
+            nhanKhauModel.setDanToc(jTFDanToc.getText().trim());
+            nhanKhauModel.setQuocTich(jTFQuocTich.getText().trim());
+            nhanKhauModel.setNgheNghiep(jTFNgheNghiep.getText().trim());
+            nhanKhauModel.setSoDienThoai(jTFSoDienThoai.getText().trim());
+            nhanKhauModel.setEmail(jTFEmail.getText().trim());
+            nhanKhauModel.setDiaChi(jTFDiaChi.getText().trim());
+            // radio
+            if(jRadioBHYT_YES.isSelected()) {
+                nhanKhauModel.setCheckBHYT(1);
+            } else if (jRadioBHYT_NO.isSelected()) {
+                nhanKhauModel.setCheckBHYT(0);
+            }
+            nhanKhauModel.setMaTheBHYT(jTFMaTheBHYT.getText().trim());
+            nhanKhauModel.setMaHoKhau(jTFMaHoKhau.getText().trim());
+            nhanKhauModel.setNoiLamViec(jTFNoiLamViec.getText().trim());
 
+            try {
+                if (addNhanKhauController.addNewNhanKhau(nhanKhauModel)) {
+                    JOptionPane.showMessageDialog(rootPane, "New person added successfully !", "Add Person", JOptionPane.INFORMATION_MESSAGE);
+
+
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Person not added !", "Add Person Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the person fields number !", "Person Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButtonAddNhanKhauActionPerformed
+
+    // check cac gia tri duoc nhap vao form
+    private boolean validateValueInForm() {
+        
+        // check null
+        if (jTFHoVaTen.getText().trim().isEmpty()
+                || jTFChungMinhThu.getText().trim().isEmpty()
+                || jTFDanToc.getText().trim().isEmpty()
+                || jTFQuocTich.getText().trim().isEmpty()
+                || jTFSoDienThoai.getText().trim().isEmpty()
+                || jTFEmail.getText().trim().isEmpty()
+                || jTFDiaChi.getText().trim().isEmpty()
+                || jTFMaHoKhau.getText().trim().isEmpty()
+                || (!jRadioBHYT_YES.isSelected() && !jRadioBHYT_NO.isSelected())) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập hết các trường bắt buộc", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        // check dinh dang so chung minh thu
+        try {
+            long d = Long.parseLong(jTFChungMinhThu.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Số CMT không thể chứa các ký tự chữ cái", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        // kiem tra do dai cmt
+        if (jTFChungMinhThu.getText().length() != 9 && jTFChungMinhThu.getText().length() != 12) {
+            JOptionPane.showMessageDialog(rootPane, "Số CMT có 9 hoặc 12 số", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        // kiểm tra trùng lặp chứng minh thư
+        if (addNhanKhauController.equalCMT(jTFChungMinhThu.getText().trim())) {
+            JOptionPane.showMessageDialog(rootPane, "Số CMT đã tồn tại", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        // kiểm tra lựa chọn giới tính
+        if (jCoBoxGioiTinh.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn mục: \"Giới tính\"", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đóng không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
             this.dispose();
@@ -781,8 +869,8 @@ public class AddNhanKhau extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAddNhanKhau;
     private javax.swing.JComboBox<String> jCoBoxGioiTinh;
     private com.toedter.calendar.JDateChooser jDateCNgaySinh;
     private javax.swing.JLabel jLabel1;
@@ -831,7 +919,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioBHYT_NO;
     private javax.swing.JRadioButton jRadioBHYT_YES;
-    private javax.swing.JTextField jTFCMT;
+    private javax.swing.JTextField jTFChungMinhThu;
     private javax.swing.JTextField jTFDanToc;
     private javax.swing.JTextField jTFDiaChi;
     private javax.swing.JTextField jTFEmail;
@@ -841,6 +929,6 @@ public class AddNhanKhau extends javax.swing.JFrame {
     private javax.swing.JTextField jTFNgheNghiep;
     private javax.swing.JTextField jTFNoiLamViec;
     private javax.swing.JTextField jTFQuocTich;
-    private javax.swing.JTextField jTFSĐT;
+    private javax.swing.JTextField jTFSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }
