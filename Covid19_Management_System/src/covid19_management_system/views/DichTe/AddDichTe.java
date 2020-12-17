@@ -9,8 +9,13 @@ import covid19_management_system.controllers.dichTeController.AddDichTeControlle
 import covid19_management_system.controllers.nhankhauController.EditNhanKhauController;
 import covid19_management_system.models.DichTeModel;
 import covid19_management_system.models.NhanKhauModel;
+import covid19_management_system.views.NhanKhau.ShowInfoAllNhanKhau;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
@@ -21,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,7 +37,8 @@ public class AddDichTe extends javax.swing.JFrame {
     /**
      * Creates new form AddDichTe
      */
-    private String chungMinhThu;
+    private String chungMinhThu = "";
+
     private int ID;
 
     ButtonGroup bgCheckBHYT = new ButtonGroup();
@@ -50,8 +57,10 @@ public class AddDichTe extends javax.swing.JFrame {
         bgCheckBHYT.add(jRadioBHYT_NO);
         bgTXCovid.add(jRadioTXCovid_YES);
         bgTXCovid.add(jRadioTXCovid_NO);
-        bgCheckBHYT.add(jRadioTuVungDich_YES);
-        bgCheckBHYT.add(jRadioTuVungDich_NO);
+        bgTuVungDich.add(jRadioTuVungDich_YES);
+        bgTuVungDich.add(jRadioTuVungDich_NO);
+
+        jTFChungMinhThu.setText(chungMinhThu.trim());
 
         // confirm de thuc hien dong
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -179,6 +188,8 @@ public class AddDichTe extends javax.swing.JFrame {
         jPanel19 = new javax.swing.JPanel();
         jButtonAddDichTe = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jButtonShowInfo = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jTFEmail = new javax.swing.JTextField();
@@ -516,12 +527,25 @@ public class AddDichTe extends javax.swing.JFrame {
             }
         });
 
+        jLabel17.setText("Vui lòng nhập CMT và nhấn Enter để tìm kiếm thông tin nhân khẩu trước khi thực hiện khai báo dịch tễ !");
+
+        jButtonShowInfo.setText("SHOW INFO");
+        jButtonShowInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShowInfoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonShowInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonAddDichTe)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
@@ -533,7 +557,9 @@ public class AddDichTe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButtonAddDichTe))
+                    .addComponent(jButtonAddDichTe)
+                    .addComponent(jLabel17)
+                    .addComponent(jButtonShowInfo))
                 .addContainerGap())
         );
 
@@ -1178,11 +1204,79 @@ public class AddDichTe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFChungMinhThuKeyReleased
 
+    private void jButtonShowInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowInfoActionPerformed
+        ShowInfoAllNhanKhau temp = new ShowInfoAllNhanKhau();
+        temp.setLocationRelativeTo(null);
+        temp.setResizable(false);
+        temp.setVisible(true);
+
+        temp.getjTableNhanKhau().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                DefaultTableModel model = (DefaultTableModel) temp.getjTableNhanKhau().getModel();
+                int rowIndex = temp.getjTableNhanKhau().getSelectedRow();
+                chungMinhThu = model.getValueAt(rowIndex, 1).toString().trim();
+                temp.getjTFShowCMT().setText(chungMinhThu);
+            }
+        });
+//        temp.getjTFShowCMT().setText(chungMinhThu.trim());
+        temp.getjButtonCHOOSE().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (temp.getjTFShowCMT().getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Lựa chọn nhân khẩu từ bảng trước !", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    jTFChungMinhThu.setText(chungMinhThu.trim());
+
+                    temp.dispose();
+
+                    if (JOptionPane.showConfirmDialog(null, "Tìm thấy. Có muốn thực hiện khai báo dịch tễ\nvới nhân khẩu có CMT: " + chungMinhThu + " không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
+                        NhanKhauModel nhanKhauModel = new NhanKhauModel();
+                        nhanKhauModel = editNhanKhauController.searchAllInfoNhanKhau(chungMinhThu);
+                        jTFChungMinhThu.setBackground(Color.GRAY);
+                        jTFChungMinhThu.setEditable(false);
+                        jTFHoVaTen.setText(nhanKhauModel.getHoTen().trim());
+                        jTFHoVaTen.setBackground(Color.gray);
+                        // date db to form
+                        try {
+                            Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(nhanKhauModel.getNgaySinh().toString());
+                            jDateCNgaySinh.setDate(dateIn);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(AddDichTe.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        // combobox
+                        jCoBoxGioiTinh.setSelectedIndex(nhanKhauModel.getGioiTinh());
+                        jTFQuocTich.setText(nhanKhauModel.getQuocTich().trim());
+                        jTFSoDienThoai.setText(nhanKhauModel.getSoDienThoai().trim());
+                        jTFEmail.setText(nhanKhauModel.getEmail().trim());
+                        jTFDiaChi.setText(nhanKhauModel.getDiaChi().trim());
+                        // radio
+                        jRadioBHYT_YES.setEnabled(true);
+                        jRadioBHYT_NO.setEnabled(true);
+                        if (nhanKhauModel.getCheckBHYT() == 1) {
+                            jRadioBHYT_YES.setSelected(true);
+                        } else if (nhanKhauModel.getCheckBHYT() == 0) {
+                            jRadioBHYT_NO.setSelected(true);
+                        }
+                        jTFMaTheBHYT.setText(nhanKhauModel.getMaTheBHYT().trim());
+                        jRadioBHYT_YES.setEnabled(false);
+                        jRadioBHYT_NO.setEnabled(false);
+
+                        setEnableDichTeFields(true);
+                    }
+                }
+
+            }
+        });
+
+
+    }//GEN-LAST:event_jButtonShowInfoActionPerformed
+
     // check cac gia tri duoc nhap vao form
     private boolean checkDesignCMT() {
         // check null
         if (jTFChungMinhThu.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Nhập CMT và nhấn Enter để tìm kiếm", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Nhập CMT và nhấn Enter để tìm kiếm\nHoặc nhấn nút \"SHOW INFO\" để chọn nhân khẩu.", "Warning", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         // check dinh dang so chung minh thu
@@ -1238,6 +1332,7 @@ public class AddDichTe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAddDichTe;
+    private javax.swing.JButton jButtonShowInfo;
     private javax.swing.JCheckBox jCheckBoxBenh1;
     private javax.swing.JCheckBox jCheckBoxBenh2;
     private javax.swing.JCheckBox jCheckBoxBenh3;
@@ -1267,6 +1362,7 @@ public class AddDichTe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

@@ -5,14 +5,18 @@
  */
 package covid19_management_system.views;
 
+import covid19_management_system.controllers.dichTeController.DeleteDichTeController;
 import covid19_management_system.controllers.dichTeController.ShowTableDichTeController;
+import covid19_management_system.controllers.nhankhauController.DeleteNhanKhauController;
 import covid19_management_system.controllers.nhankhauController.ShowTableNhanKhauController;
 import covid19_management_system.views.DichTe.AddDichTe;
+import covid19_management_system.views.DichTe.EditDichTe;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,11 +28,15 @@ public class DichTeManage extends javax.swing.JFrame {
      * Creates new form DichTeManage
      */
     ShowTableDichTeController showTableDichTeController = new ShowTableDichTeController();
+    ShowTableNhanKhauController showTableNhanKhauController = new ShowTableNhanKhauController();
+    DeleteNhanKhauController deleteNhanKhauController = new DeleteNhanKhauController();
+    DeleteDichTeController deleteDichTeController = new DeleteDichTeController();
+
     public DichTeManage() {
         initComponents();
         this.setTitle("Quản lý thông tin khai báo dịch tễ cá nhân");
 
-        this.settingTableShowNhanKhau();
+        this.settingTableShowDichTe();
         showTableDichTeController.showDichTe(jTableKhaiDichTe);
 
         // confirm de thuc hien dong
@@ -43,7 +51,7 @@ public class DichTeManage extends javax.swing.JFrame {
         });
     }
 
-    public void settingTableShowNhanKhau() {
+    public void settingTableShowDichTe() {
         jTableKhaiDichTe.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
         jTableKhaiDichTe.getColumnModel().getColumn(0).setPreferredWidth(1);
         jTableKhaiDichTe.getColumnModel().getColumn(1).setPreferredWidth(115);
@@ -56,7 +64,7 @@ public class DichTeManage extends javax.swing.JFrame {
         jTableKhaiDichTe.getColumnModel().getColumn(8).setPreferredWidth(20);
         jTableKhaiDichTe.getColumnModel().getColumn(9).setPreferredWidth(170);
         jTableKhaiDichTe.getColumnModel().getColumn(10).setPreferredWidth(170);
-        
+
         jTableKhaiDichTe.setRowHeight(30);
     }
 
@@ -73,20 +81,21 @@ public class DichTeManage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jTFSearchByCMT = new javax.swing.JTextField();
+        jButtonSearch = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButtonShowInfoNhanKhau = new javax.swing.JButton();
+        jButtonShowInfoDichTe = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableKhaiDichTe = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonEditDichTe = new javax.swing.JButton();
+        jButtonDeleteDichTe = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jButtonXemChiTiet = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,19 +123,24 @@ public class DichTeManage extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFSearchByCMT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("TÌM KIẾM");
+        jButtonSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonSearch.setText("TÌM KIẾM");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("TÌM KIẾM THEO CMT:");
 
-        jButtonShowInfoNhanKhau.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonShowInfoNhanKhau.setText("SHOW ALL");
-        jButtonShowInfoNhanKhau.addActionListener(new java.awt.event.ActionListener() {
+        jButtonShowInfoDichTe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonShowInfoDichTe.setText("SHOW ALL");
+        jButtonShowInfoDichTe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonShowInfoNhanKhauActionPerformed(evt);
+                jButtonShowInfoDichTeActionPerformed(evt);
             }
         });
 
@@ -138,11 +152,11 @@ public class DichTeManage extends javax.swing.JFrame {
                 .addGap(256, 256, 256)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFSearchByCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jButtonSearch)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonShowInfoNhanKhau)
+                .addComponent(jButtonShowInfoDichTe)
                 .addContainerGap(350, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -150,10 +164,10 @@ public class DichTeManage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
+                    .addComponent(jTFSearchByCMT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearch)
                     .addComponent(jLabel2)
-                    .addComponent(jButtonShowInfoNhanKhau))
+                    .addComponent(jButtonShowInfoDichTe))
                 .addContainerGap())
         );
 
@@ -220,19 +234,19 @@ public class DichTeManage extends javax.swing.JFrame {
         }
     });
 
-    jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-    jButton3.setText("SỬA");
-    jButton3.addActionListener(new java.awt.event.ActionListener() {
+    jButtonEditDichTe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButtonEditDichTe.setText("SỬA");
+    jButtonEditDichTe.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton3ActionPerformed(evt);
+            jButtonEditDichTeActionPerformed(evt);
         }
     });
 
-    jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-    jButton4.setText("XÓA");
-    jButton4.addActionListener(new java.awt.event.ActionListener() {
+    jButtonDeleteDichTe.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButtonDeleteDichTe.setText("XÓA");
+    jButtonDeleteDichTe.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton4ActionPerformed(evt);
+            jButtonDeleteDichTeActionPerformed(evt);
         }
     });
 
@@ -249,17 +263,18 @@ public class DichTeManage extends javax.swing.JFrame {
         }
     });
 
+    jButtonXemChiTiet.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButtonXemChiTiet.setText("CHI TIẾT");
+    jButtonXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButtonXemChiTietActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
     jPanel5.setLayout(jPanel5Layout);
     jPanel5Layout.setHorizontalGroup(
         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(18, 18, 18)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addGroup(jPanel5Layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,16 +284,27 @@ public class DichTeManage extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
+        .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGap(22, 22, 22)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jButtonXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonEditDichTe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDeleteDichTe, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     jPanel5Layout.setVerticalGroup(
         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(54, 54, 54)
+            .addGap(60, 60, 60)
             .addComponent(jButton2)
             .addGap(18, 18, 18)
-            .addComponent(jButton3)
+            .addComponent(jButtonEditDichTe)
             .addGap(18, 18, 18)
-            .addComponent(jButton4)
+            .addComponent(jButtonDeleteDichTe)
+            .addGap(18, 18, 18)
+            .addComponent(jButtonXemChiTiet)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel3)
             .addGap(18, 18, 18)
@@ -337,40 +363,119 @@ public class DichTeManage extends javax.swing.JFrame {
         addDichTe.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonEditDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditDichTeActionPerformed
+        if (jTFSearchByCMT.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Chọn khai báo dịch tễ muốn chỉnh sửa", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String chungMinhThu = jTFSearchByCMT.getText().trim();
+            EditDichTe editDichTe = new EditDichTe(chungMinhThu);
+            editDichTe.setLocationRelativeTo(null);
+            editDichTe.setResizable(false);
+            editDichTe.setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonEditDichTeActionPerformed
 
+    private void jButtonDeleteDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteDichTeActionPerformed
+        if (jTFSearchByCMT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Chọn khai báo dịch tễ muốn xóa trên bảng", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String chungMinhThu = jTFSearchByCMT.getText().trim();
+            int ID = 0;
+            ID = deleteNhanKhauController.searchIDFromCMT(chungMinhThu);
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
+                // xóa
+                if (deleteDichTeController.removeDichTe(ID)) {
+                    deleteDichTeController.removeTrieuChung(ID);
+                    deleteDichTeController.removeBenh(ID);
+                    JOptionPane.showMessageDialog(rootPane, "Successfully !", "Infomation", JOptionPane.INFORMATION_MESSAGE);
+                    this.settingTableShowDichTe();
+                    showTableDichTeController.showDichTe(jTableKhaiDichTe);
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Fail !", "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+            } else {
+                return;
+            }
+        }
+    }//GEN-LAST:event_jButtonDeleteDichTeActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTableKhaiDichTeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableKhaiDichTeMouseClicked
-
-//        DefaultTableModel model = (DefaultTableModel) jTableNhanKhau.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableKhaiDichTe.getModel();
         int rowIndex = jTableKhaiDichTe.getSelectedRow();
         // display data
         int ID = 0;
-//        ID = (int) model.getValueAt(rowIndex, 0);
+        ID = (int) model.getValueAt(rowIndex, 0);
 //        jTFSearchByCMT.setText(model.getValueAt(rowIndex, 0).toString());
-//        String chungMinhThu = showTableNhanKhauController.searchCMTByID(ID).trim();
-//        jTFSearchByCMT.setText(chungMinhThu);
+        String chungMinhThu = showTableNhanKhauController.searchCMTByID(ID).trim();
+        jTFSearchByCMT.setText(chungMinhThu);
     }//GEN-LAST:event_jTableKhaiDichTeMouseClicked
 
     private void jTableKhaiDichTeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableKhaiDichTeMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableKhaiDichTeMouseEntered
 
-    private void jButtonShowInfoNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowInfoNhanKhauActionPerformed
-//        jTFSearchByCMT.setText("");
-//        this.settingTableShowNhanKhau();
-//        showTableNhanKhauController.showNhanKhau(jTableNhanKhau);
-    }//GEN-LAST:event_jButtonShowInfoNhanKhauActionPerformed
+    private void jButtonShowInfoDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowInfoDichTeActionPerformed
+        jTFSearchByCMT.setText("");
+        this.settingTableShowDichTe();
+        showTableDichTeController.showDichTe(jTableKhaiDichTe);
+    }//GEN-LAST:event_jButtonShowInfoDichTeActionPerformed
+
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        if (jTFSearchByCMT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Nhập chứng minh thư để tìm kiếm ", "Information", JOptionPane.INFORMATION_MESSAGE);
+            this.settingTableShowDichTe();
+            showTableDichTeController.showDichTe(jTableKhaiDichTe);
+            return;
+        } else {
+            String chungMinhThu = jTFSearchByCMT.getText().trim();
+            if (checkDesignCMT()) {
+                showTableDichTeController.showDichTeWithCMT(jTableKhaiDichTe, chungMinhThu);
+                if (jTableKhaiDichTe.getRowCount() == 0) {
+                    this.settingTableShowDichTe();
+                    showTableDichTeController.showDichTe(jTableKhaiDichTe);
+                    JOptionPane.showMessageDialog(rootPane, "Không có nhân khẩu có CMT: " + chungMinhThu, "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Tìm thấy. Hiện trên bảng kìa.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+                return;
+            }
+
+        }
+    }//GEN-LAST:event_jButtonSearchActionPerformed
+
+    private void jButtonXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXemChiTietActionPerformed
+//        if (jTFSearchByCMT.getText().isEmpty()){
+//            JOptionPane.showMessageDialog(rootPane, "Chọn nhân khẩu muốn xem chi tiết", "Warning", JOptionPane.WARNING_MESSAGE);
+//        } else {
+//            String chungMinhThu = jTFSearchByCMT.getText().trim();
+//            InfoNhanKhau infoNhanKhau = new InfoNhanKhau(chungMinhThu);
+//            infoNhanKhau.setLocationRelativeTo(null);
+//            infoNhanKhau.setResizable(false);
+//            infoNhanKhau.setVisible(true);
+//        }
+    }//GEN-LAST:event_jButtonXemChiTietActionPerformed
+
+    private boolean checkDesignCMT() {
+        // check dinh dang so chung minh thu
+        try {
+            long d = Long.parseLong(jTFSearchByCMT.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Số CMT không thể chứa các ký tự chữ cái", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        // kiem tra do dai cmt
+        if (jTFSearchByCMT.getText().length() != 9 && jTFSearchByCMT.getText().length() != 12) {
+            JOptionPane.showMessageDialog(rootPane, "Số CMT có 9 hoặc 12 số", "Warning", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
@@ -408,12 +513,13 @@ public class DichTeManage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButtonShowInfoNhanKhau;
+    private javax.swing.JButton jButtonDeleteDichTe;
+    private javax.swing.JButton jButtonEditDichTe;
+    private javax.swing.JButton jButtonSearch;
+    private javax.swing.JButton jButtonShowInfoDichTe;
+    private javax.swing.JButton jButtonXemChiTiet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -423,8 +529,8 @@ public class DichTeManage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFSearchByCMT;
     private javax.swing.JTable jTableKhaiDichTe;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

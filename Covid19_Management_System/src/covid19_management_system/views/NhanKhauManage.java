@@ -53,10 +53,11 @@ public class NhanKhauManage extends javax.swing.JFrame {
     public void settingTableShowNhanKhau(){
         jTableNhanKhau.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
         jTableNhanKhau.getColumnModel().getColumn(0).setPreferredWidth(5);
-        jTableNhanKhau.getColumnModel().getColumn(1).setPreferredWidth(125);
-        jTableNhanKhau.getColumnModel().getColumn(2).setPreferredWidth(50);
-        jTableNhanKhau.getColumnModel().getColumn(3).setPreferredWidth(25);
-        jTableNhanKhau.getColumnModel().getColumn(4).setPreferredWidth(190);
+        jTableNhanKhau.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTableNhanKhau.getColumnModel().getColumn(2).setPreferredWidth(125);
+        jTableNhanKhau.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTableNhanKhau.getColumnModel().getColumn(4).setPreferredWidth(25);
+        jTableNhanKhau.getColumnModel().getColumn(5).setPreferredWidth(190);
         jTableNhanKhau.setRowHeight(30);
     }
 
@@ -100,10 +101,10 @@ public class NhanKhauManage extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(424, 424, 424)
                 .addComponent(jLabel1)
-                .addGap(283, 283, 283))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +142,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(119, 119, 119)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTFSearchByCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,7 +150,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
                 .addComponent(jButtonSearchInfoByCMT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonShowInfoNhanKhau)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +172,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Họ và tên", "Ngày sinh", "Giới tính", "Địa chỉ", "Số điện thoại"
+                "ID","Chứng minh thư", "Họ và tên", "Ngày sinh", "Giới tính", "Địa chỉ", "Số điện thoại"
             }
         )
 
@@ -199,16 +200,16 @@ public class NhanKhauManage extends javax.swing.JFrame {
     jPanel4.setLayout(jPanel4Layout);
     jPanel4Layout.setHorizontalGroup(
         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 694, Short.MAX_VALUE)
+        .addGap(0, 0, Short.MAX_VALUE)
         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
                 .addContainerGap()))
     );
     jPanel4Layout.setVerticalGroup(
         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 424, Short.MAX_VALUE)
+        .addGap(0, 484, Short.MAX_VALUE)
         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -277,7 +278,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
                 .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
         .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(18, 18, 18)
+            .addGap(22, 22, 22)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jButtonXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -289,7 +290,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
     jPanel5Layout.setVerticalGroup(
         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(54, 54, 54)
+            .addGap(72, 72, 72)
             .addComponent(jButtonThemNhanKhau)
             .addGap(18, 18, 18)
             .addComponent(jButtonSuaNhanKhau)
@@ -303,7 +304,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
             .addComponent(jButton5)
-            .addGap(82, 82, 82))
+            .addGap(113, 113, 113))
     );
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -313,12 +314,12 @@ public class NhanKhauManage extends javax.swing.JFrame {
         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,11 +403,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTableNhanKhau.getModel();
         int rowIndex = jTableNhanKhau.getSelectedRow();
         // display data
-        int ID = 0;
-        ID = (int) model.getValueAt(rowIndex, 0);
-        jTFSearchByCMT.setText(model.getValueAt(rowIndex, 0).toString());
-        String chungMinhThu = showTableNhanKhauController.searchCMTByID(ID).trim();
-        jTFSearchByCMT.setText(chungMinhThu);
+        jTFSearchByCMT.setText(model.getValueAt(rowIndex, 1).toString());
     }//GEN-LAST:event_jTableNhanKhauMouseClicked
 
     private void jButtonSearchInfoByCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchInfoByCMTActionPerformed

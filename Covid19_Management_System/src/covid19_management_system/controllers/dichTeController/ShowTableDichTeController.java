@@ -29,7 +29,7 @@ public class ShowTableDichTeController {
         ResultSet resultSet;
 
         int IDNhanKhau;
-        String query = "SELECT `id_person`, `ngay_khai`, `tx_benh`, `tu_vung_dich` FROM `dich_te` WHERE 1";
+        String query = "SELECT `id_person`, `ngay_khai`, `tx_benh`, `tu_vung_dich` FROM `dich_te` WHERE 1 ORDER BY `id_person` ASC";
         try {
             preparedStatement = my_connection.createConnection().prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
@@ -88,7 +88,158 @@ public class ShowTableDichTeController {
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 row[6] = dateFormat.format(resultSet.getDate(2));
-                System.out.println("hello");
+//                System.out.println("hello");
+
+                int txCovid = resultSet.getInt(3);
+                switch (txCovid) {
+                    case 0:
+                        row[7] = "Không";
+                        break;
+                    case 1:
+                        row[7] = "Có";
+                        break;
+                    default:
+                        break;
+                }
+
+                int tuVungDich = resultSet.getInt(4);
+                switch (tuVungDich) {
+                    case 0:
+                        row[8] = "Không";
+                        break;
+                    case 1:
+                        row[8] = "Có";
+                        break;
+                    default:
+                        break;
+                }
+                
+                // - search thông tin trieu chung
+                PreparedStatement preparedStatementTC;
+                ResultSet resultSetTC;
+                String trieuChung = "";
+                String queryTC = "SELECT `trieu_chung` FROM `khai_trieu_chung` WHERE `id_person`=?";
+                try {
+                    preparedStatementTC = my_connection.createConnection().prepareStatement(queryTC);
+                    preparedStatementTC.setInt(1, IDNhanKhau);
+                    resultSetTC = preparedStatementTC.executeQuery();
+
+                    while (resultSetTC.next()) {
+                        trieuChung += setTrieuChung(resultSetTC.getInt(1)) + ", ";
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ShowTableDichTeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                row[9] = trieuChung;
+                // - kết thúc thông tin triệu chứng
+                
+                // - search thông tin bệnh
+                PreparedStatement preparedStatementBenh;
+                ResultSet resultSetBenh;
+                String benh = "";
+                String queryBenh = "SELECT `ma_benh` FROM `khai_benh` WHERE `id_person`=?";
+                try {
+                    preparedStatementBenh = my_connection.createConnection().prepareStatement(queryBenh);
+                    preparedStatementBenh.setInt(1, IDNhanKhau);
+                    resultSetBenh = preparedStatementBenh.executeQuery();
+
+                    while (resultSetBenh.next()) {
+                        benh += setBenh(resultSetBenh.getInt(1)) + ", ";
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ShowTableDichTeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                row[10] = benh;
+                // - kết thúc thông tin bệnh
+
+                tableModel.addRow(row);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ShowTableDichTeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showDichTeWithCMT(JTable table, String CMT) {
+        // ---------- search ID nhân khẩu -------------------
+        int IDNhanKhau = 0;
+        PreparedStatement ps;
+        ResultSet rs;
+        String querySearch = "SELECT `ID` FROM `nhan_khau` WHERE `chungMinhThu`=?";
+        try {
+            ps = my_connection.createConnection().prepareStatement(querySearch);
+            ps.setString(1, CMT);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                IDNhanKhau = rs.getInt(1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ShowTableDichTeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (IDNhanKhau == 0) return;
+        // -------------- đã có ID nhân khẩu -----------------------
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        String query = "SELECT `id_person`, `ngay_khai`, `tx_benh`, `tu_vung_dich` FROM `dich_te` WHERE `id_person`=?";
+        try {
+            preparedStatement = my_connection.createConnection().prepareStatement(query);
+            preparedStatement.setInt(1, IDNhanKhau);
+            resultSet = preparedStatement.executeQuery();
+            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
+                tableModel.removeRow(i);
+            }
+            Object[] row;
+            while (resultSet.next()) {
+                row = new Object[11];
+
+                // - search thông tin cá nhân
+                PreparedStatement preparedStatementNK;
+                ResultSet resultSetNK;
+                String queryNK = "SELECT `ID`, `hoTen`, `ngaySinh`, `gioiTinh`, `diaChi`, `soDienThoai` FROM `nhan_khau` WHERE `ID`=?";
+                try {
+                    preparedStatementNK = my_connection.createConnection().prepareStatement(queryNK);
+                    preparedStatementNK.setInt(1, IDNhanKhau);
+                    resultSetNK = preparedStatementNK.executeQuery();
+
+                    while (resultSetNK.next()) {
+                        row[0] = resultSetNK.getInt(1);
+                        row[1] = resultSetNK.getString(2);
+                        // ngaySinh
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        row[2] = dateFormat.format(resultSetNK.getDate(3));
+                        // gioiTinh
+                        int gioiTinh = resultSetNK.getInt(4);
+                        switch (gioiTinh) {
+                            case 0:
+                                row[3] = "";
+                                break;
+                            case 1:
+                                row[3] = "Nam";
+                                break;
+                            case 2:
+                                row[3] = "Nữ";
+                                break;
+                            case 3:
+                                row[3] = "Khác";
+                                break;
+                            default:
+                                break;
+                        }
+                        row[4] = resultSetNK.getString(5);
+                        row[5] = resultSetNK.getString(6);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ShowTableDichTeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // - kết thúc thông tin cá nhân
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                row[6] = dateFormat.format(resultSet.getDate(2));
+//                System.out.println("hello");
 
                 int txCovid = resultSet.getInt(3);
                 switch (txCovid) {

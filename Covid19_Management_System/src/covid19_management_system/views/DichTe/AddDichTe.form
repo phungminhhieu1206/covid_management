@@ -637,6 +637,10 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jButtonShowInfo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButtonAddDichTe" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -652,6 +656,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonAddDichTe" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonShowInfo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -673,6 +679,19 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel17">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Vui l&#xf2;ng nh&#x1ead;p CMT v&#xe0; nh&#x1ea5;n Enter &#x111;&#x1ec3; t&#xec;m ki&#x1ebf;m th&#xf4;ng tin nh&#xe2;n kh&#x1ea9;u tr&#x1b0;&#x1edb;c khi th&#x1ef1;c hi&#x1ec7;n khai b&#xe1;o d&#x1ecb;ch t&#x1ec5; !"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButtonShowInfo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="SHOW INFO"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonShowInfoActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

@@ -15,7 +15,7 @@ import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -29,14 +29,15 @@ public class AddNhanKhau extends javax.swing.JFrame {
     AddNhanKhauController addNhanKhauController = new AddNhanKhauController();
     ButtonGroup checkBHYT = new ButtonGroup();
     
-    public AddNhanKhau(){
+
+    public AddNhanKhau() {
         initComponents();
         this.setTitle("Thêm mới nhân khẩu");
-        
+
         // create a button group for the radioButtons
         checkBHYT.add(jRadioBHYT_YES);
         checkBHYT.add(jRadioBHYT_NO);
-        
+
         // confirm de thuc hien dong
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -48,7 +49,28 @@ public class AddNhanKhau extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    public void clearFields() {
+        jTFHoVaTen.setText(null);
+        jTFChungMinhThu.setText(null);
+        // date
+        jDateCNgaySinh.setDate(new Date());
+        // combobox
+        jCoBoxGioiTinh.setSelectedIndex(0);
+        jTFDanToc.setText(null);
+        jTFQuocTich.setText(null);
+        jTFNgheNghiep.setText(null);
+        jTFSoDienThoai.setText(null);
+        jTFEmail.setText(null);
+        jTFDiaChi.setText(null);
+        // radio
+        checkBHYT.clearSelection();
+        jTFMaTheBHYT.setText(null);
+        jTFMaHoKhau.setText(null);
+        jTFNoiLamViec.setText(null);
+        
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -472,9 +494,19 @@ public class AddNhanKhau extends javax.swing.JFrame {
 
         jRadioBHYT_YES.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jRadioBHYT_YES.setText("CÓ");
+        jRadioBHYT_YES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioBHYT_YESActionPerformed(evt);
+            }
+        });
 
         jRadioBHYT_NO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jRadioBHYT_NO.setText("KHÔNG");
+        jRadioBHYT_NO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioBHYT_NOActionPerformed(evt);
+            }
+        });
 
         jLabel28.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 0, 0));
@@ -741,16 +773,16 @@ public class AddNhanKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNhanKhauActionPerformed
-        if(validateValueInForm()){
+        if (validateValueInForm()) {
             NhanKhauModel nhanKhauModel = new NhanKhauModel();
-        
+
             nhanKhauModel.setHoTen(jTFHoVaTen.getText().trim());
             nhanKhauModel.setChungMinhThu(jTFChungMinhThu.getText().trim());
             // date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // theo chuan cua db dang sd
             nhanKhauModel.setNgaySinhStr(dateFormat.format(jDateCNgaySinh.getDate()));
             nhanKhauModel.setNgaySinh(jDateCNgaySinh.getDate());
-    //        System.out.println(nhanKhauModel.getNgaySinh());
+            //        System.out.println(nhanKhauModel.getNgaySinh());
             // combobox
             nhanKhauModel.setGioiTinh(jCoBoxGioiTinh.getSelectedIndex());
             nhanKhauModel.setDanToc(jTFDanToc.getText().trim());
@@ -760,7 +792,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
             nhanKhauModel.setEmail(jTFEmail.getText().trim());
             nhanKhauModel.setDiaChi(jTFDiaChi.getText().trim());
             // radio
-            if(jRadioBHYT_YES.isSelected()) {
+            if (jRadioBHYT_YES.isSelected()) {
                 nhanKhauModel.setCheckBHYT(1);
             } else if (jRadioBHYT_NO.isSelected()) {
                 nhanKhauModel.setCheckBHYT(0);
@@ -771,11 +803,11 @@ public class AddNhanKhau extends javax.swing.JFrame {
 
             try {
                 if (addNhanKhauController.addNewNhanKhau(nhanKhauModel)) {
-                    JOptionPane.showMessageDialog(rootPane, "New person added successfully !", "Add Person", JOptionPane.INFORMATION_MESSAGE);
-
+                    this.clearFields();
+                    JOptionPane.showMessageDialog(rootPane, "Successfully !", "Infomation", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Person not added !", "Add Person Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Fail !", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             } catch (NumberFormatException ex) {
@@ -786,7 +818,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
 
     // check cac gia tri duoc nhap vao form
     private boolean validateValueInForm() {
-        
+
         // check null
         if (jTFHoVaTen.getText().trim().isEmpty()
                 || jTFChungMinhThu.getText().trim().isEmpty()
@@ -824,12 +856,20 @@ public class AddNhanKhau extends javax.swing.JFrame {
         }
         return true;
     }
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đóng không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jRadioBHYT_YESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioBHYT_YESActionPerformed
+        jTFMaTheBHYT.setEnabled(true);
+    }//GEN-LAST:event_jRadioBHYT_YESActionPerformed
+
+    private void jRadioBHYT_NOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioBHYT_NOActionPerformed
+        jTFMaTheBHYT.setEnabled(false);
+    }//GEN-LAST:event_jRadioBHYT_NOActionPerformed
 
     /**
      * @param args the command line arguments

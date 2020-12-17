@@ -811,6 +811,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="C&#xd3;"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioBHYT_YESActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioBHYT_NO">
                   <Properties>
@@ -819,6 +822,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="KH&#xd4;NG"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioBHYT_NOActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel28">
                   <Properties>
