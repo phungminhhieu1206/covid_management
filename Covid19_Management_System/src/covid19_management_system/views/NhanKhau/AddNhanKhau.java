@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -22,6 +23,14 @@ import javax.swing.JRadioButton;
  * @author HieuPhung
  */
 public class AddNhanKhau extends javax.swing.JFrame {
+
+    public JButton getjButtonAddNhanKhau() {
+        return jButtonAddNhanKhau;
+    }
+
+    public void setjButtonAddNhanKhau(JButton jButtonAddNhanKhau) {
+        this.jButtonAddNhanKhau = jButtonAddNhanKhau;
+    }
 
     /**
      * Creates new form AddNewNhanKhau
@@ -773,6 +782,10 @@ public class AddNhanKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNhanKhauActionPerformed
+        
+    }//GEN-LAST:event_jButtonAddNhanKhauActionPerformed
+
+    public void clickCreateButton() {
         if (validateValueInForm()) {
             NhanKhauModel nhanKhauModel = new NhanKhauModel();
 
@@ -814,8 +827,7 @@ public class AddNhanKhau extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the person fields number !", "Person Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jButtonAddNhanKhauActionPerformed
-
+    }
     // check cac gia tri duoc nhap vao form
     private boolean validateValueInForm() {
 

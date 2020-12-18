@@ -95,7 +95,7 @@ public class ShowTableNhanKhauController {
             Object[] row;
 
             while (resultSet.next()) {
-                row = new Object[6];
+                row = new Object[7];
                 row[0] = resultSet.getInt(1);
                 row[1] = resultSet.getString(2);
                 row[2] = resultSet.getString(3);

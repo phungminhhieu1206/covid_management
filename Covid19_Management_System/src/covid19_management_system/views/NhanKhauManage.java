@@ -10,11 +10,16 @@ import covid19_management_system.controllers.nhankhauController.ShowTableNhanKha
 import covid19_management_system.views.NhanKhau.AddNhanKhau;
 import covid19_management_system.views.NhanKhau.EditNhanKhau;
 import covid19_management_system.views.NhanKhau.InfoNhanKhau;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -30,14 +35,17 @@ public class NhanKhauManage extends javax.swing.JFrame {
      */
     ShowTableNhanKhauController showTableNhanKhauController = new ShowTableNhanKhauController();
     DeleteNhanKhauController deleteNhanKhauController = new DeleteNhanKhauController();
-    
+
     public NhanKhauManage() {
         initComponents();
         this.setTitle("Quản lý nhân khẩu");
-        
+
         this.settingTableShowNhanKhau();
         showTableNhanKhauController.showNhanKhau(jTableNhanKhau);
-        
+
+        // lắng nghe nhấn enter
+        keyListenner(jTFSearchByCMT);
+
         // confirm de thuc hien dong
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -49,8 +57,21 @@ public class NhanKhauManage extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void settingTableShowNhanKhau(){
+
+    // xu ly su kien nhan enter
+    public void keyListenner(JTextField jtf) {
+        jtf.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // neu keycode == 10 ~ enter
+                if (e.getKeyCode() == 10) {
+                    timKiemNhanKhau();
+                }
+            }
+        });
+    }
+
+    public void settingTableShowNhanKhau() {
         jTableNhanKhau.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
         jTableNhanKhau.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTableNhanKhau.getColumnModel().getColumn(1).setPreferredWidth(70);
@@ -350,16 +371,26 @@ public class NhanKhauManage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonThemNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemNhanKhauActionPerformed
-        
-        AddNhanKhau addNhanKhau = new AddNhanKhau();
-        addNhanKhau.setLocationRelativeTo(null);
-        addNhanKhau.setResizable(false);
-        addNhanKhau.setVisible(true);
-        
+        jTFSearchByCMT.setText("");
+        AddNhanKhau temp = new AddNhanKhau();
+        temp.setLocationRelativeTo(null);
+        temp.setResizable(false);
+        temp.setVisible(true);
+
+        temp.getjButtonAddNhanKhau().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                temp.clickCreateButton();
+                
+                settingTableShowNhanKhau();
+                showTableNhanKhauController.showNhanKhau(jTableNhanKhau);
+            }
+        });
+
     }//GEN-LAST:event_jButtonThemNhanKhauActionPerformed
 
     private void jButtonSuaNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuaNhanKhauActionPerformed
-        if (jTFSearchByCMT.getText().isEmpty()){
+        if (jTFSearchByCMT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Chọn nhân khẩu muốn chỉnh sửa", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             String chungMinhThu = jTFSearchByCMT.getText().trim();
@@ -371,7 +402,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSuaNhanKhauActionPerformed
 
     private void jButtonXoaNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoaNhanKhauActionPerformed
-        if (jTFSearchByCMT.getText().isEmpty()){
+        if (jTFSearchByCMT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Chọn nhân khẩu muốn xóa", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             String chungMinhThu = jTFSearchByCMT.getText().trim();
@@ -387,10 +418,10 @@ public class NhanKhauManage extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Person not deleted !", "Remove Person Error", JOptionPane.ERROR_MESSAGE);
                 }
-                
+
             } else {
                 return;
-            }   
+            }
         }
     }//GEN-LAST:event_jButtonXoaNhanKhauActionPerformed
 
@@ -399,7 +430,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTableNhanKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableNhanKhauMouseClicked
-        
+
         DefaultTableModel model = (DefaultTableModel) jTableNhanKhau.getModel();
         int rowIndex = jTableNhanKhau.getSelectedRow();
         // display data
@@ -407,6 +438,10 @@ public class NhanKhauManage extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableNhanKhauMouseClicked
 
     private void jButtonSearchInfoByCMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchInfoByCMTActionPerformed
+        this.timKiemNhanKhau();
+    }//GEN-LAST:event_jButtonSearchInfoByCMTActionPerformed
+
+    public void timKiemNhanKhau() {
         if (jTFSearchByCMT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Nhập chứng minh thư để tìm kiếm ", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.settingTableShowNhanKhau();
@@ -414,21 +449,22 @@ public class NhanKhauManage extends javax.swing.JFrame {
             return;
         } else {
             String chungMinhThu = jTFSearchByCMT.getText().trim();
+//            System.out.println(chungMinhThu);
             if (checkDesignCMT()) {
                 showTableNhanKhauController.showNhanKhauWithCMT(jTableNhanKhau, chungMinhThu);
+                System.out.println("hello");
                 if (jTableNhanKhau.getRowCount() == 0) {
                     this.settingTableShowNhanKhau();
                     showTableNhanKhauController.showNhanKhau(jTableNhanKhau);
-                    JOptionPane.showMessageDialog(rootPane, "Không có nhân khẩu có CMT: " + chungMinhThu, "Information", JOptionPane.INFORMATION_MESSAGE); 
+                    JOptionPane.showMessageDialog(rootPane, "Không có nhân khẩu có CMT: " + chungMinhThu, "Information", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Tìm thấy. Hiện trên bảng kìa.", "Information", JOptionPane.INFORMATION_MESSAGE); 
+                    JOptionPane.showMessageDialog(rootPane, "Tìm thấy. Hiện trên bảng kìa.", "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
                 return;
             }
-            
-        }
-    }//GEN-LAST:event_jButtonSearchInfoByCMTActionPerformed
 
+        }
+    }
     private void jButtonShowInfoNhanKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowInfoNhanKhauActionPerformed
         jTFSearchByCMT.setText("");
         this.settingTableShowNhanKhau();
@@ -440,7 +476,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableNhanKhauMouseEntered
 
     private void jButtonXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXemChiTietActionPerformed
-        if (jTFSearchByCMT.getText().isEmpty()){
+        if (jTFSearchByCMT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Chọn nhân khẩu muốn xem chi tiết", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             String chungMinhThu = jTFSearchByCMT.getText().trim();
@@ -451,7 +487,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonXemChiTietActionPerformed
 
-        // check cac gia tri duoc nhap vao form
+    // check cac gia tri duoc nhap vao form
     private boolean checkDesignCMT() {
         // check dinh dang so chung minh thu
         try {
@@ -467,6 +503,7 @@ public class NhanKhauManage extends javax.swing.JFrame {
         }
         return true;
     }
+
     /**
      * @param args the command line arguments
      */
