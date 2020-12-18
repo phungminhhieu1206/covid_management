@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -31,6 +33,7 @@ public class EditNhanKhau extends javax.swing.JFrame {
     EditNhanKhauController editNhanKhauController = new EditNhanKhauController();
     NhanKhauModel nhanKhauModel = new NhanKhauModel();
     ButtonGroup checkBHYT = new ButtonGroup();
+    String maTheBHYT = null;
 
     public EditNhanKhau(String chungMinhThu) {
         initComponents();
@@ -81,7 +84,9 @@ public class EditNhanKhau extends javax.swing.JFrame {
         } else if (nhanKhauModel.getCheckBHYT() == 0) {
             jRadioBHYT_NO.setSelected(true);
         }
-        jTFMaTheBHYT.setText(nhanKhauModel.getMaTheBHYT().trim());
+        
+        this.maTheBHYT = nhanKhauModel.getMaTheBHYT().trim();
+        jTFMaTheBHYT.setText(this.maTheBHYT);
         jTFMaHoKhau.setText(nhanKhauModel.getMaHoKhau().trim());
         jTFNoiLamViec.setText(nhanKhauModel.getNoiLamViec().trim());
     }
@@ -509,9 +514,19 @@ public class EditNhanKhau extends javax.swing.JFrame {
 
         jRadioBHYT_YES.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jRadioBHYT_YES.setText("CÓ");
+        jRadioBHYT_YES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioBHYT_YESActionPerformed(evt);
+            }
+        });
 
         jRadioBHYT_NO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jRadioBHYT_NO.setText("KHÔNG");
+        jRadioBHYT_NO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioBHYT_NOActionPerformed(evt);
+            }
+        });
 
         jLabel28.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 0, 0));
@@ -848,6 +863,40 @@ public class EditNhanKhau extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jRadioBHYT_YESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioBHYT_YESActionPerformed
+        jTFMaTheBHYT.setEnabled(true);
+        jTFMaTheBHYT.setText(maTheBHYT);
+    }//GEN-LAST:event_jRadioBHYT_YESActionPerformed
+
+    private void jRadioBHYT_NOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioBHYT_NOActionPerformed
+        jTFMaTheBHYT.setText(null);
+        jTFMaTheBHYT.setEnabled(false);
+    }//GEN-LAST:event_jRadioBHYT_NOActionPerformed
+
+    public JTextField getjTFMaTheBHYT() {
+        return jTFMaTheBHYT;
+    }
+
+    public void setjTFMaTheBHYT(JTextField jTFMaTheBHYT) {
+        this.jTFMaTheBHYT = jTFMaTheBHYT;
+    }
+
+    public JRadioButton getjRadioBHYT_NO() {
+        return jRadioBHYT_NO;
+    }
+
+    public void setjRadioBHYT_NO(JRadioButton jRadioBHYT_NO) {
+        this.jRadioBHYT_NO = jRadioBHYT_NO;
+    }
+
+    public JRadioButton getjRadioBHYT_YES() {
+        return jRadioBHYT_YES;
+    }
+
+    public void setjRadioBHYT_YES(JRadioButton jRadioBHYT_YES) {
+        this.jRadioBHYT_YES = jRadioBHYT_YES;
+    }
 
     /**
      * @param args the command line arguments

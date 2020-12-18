@@ -369,6 +369,7 @@ public class DichTeManage extends javax.swing.JFrame {
         } else {
             String chungMinhThu = jTFSearchByCMT.getText().trim();
             EditDichTe editDichTe = new EditDichTe(chungMinhThu);
+            editDichTe.setSize(1188, 628);
             editDichTe.setLocationRelativeTo(null);
             editDichTe.setResizable(false);
             editDichTe.setVisible(true);

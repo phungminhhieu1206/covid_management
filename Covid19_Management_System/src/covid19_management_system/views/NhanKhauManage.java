@@ -394,10 +394,16 @@ public class NhanKhauManage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Chọn nhân khẩu muốn chỉnh sửa", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             String chungMinhThu = jTFSearchByCMT.getText().trim();
-            EditNhanKhau editNhanKhau = new EditNhanKhau(chungMinhThu);
-            editNhanKhau.setLocationRelativeTo(null);
-            editNhanKhau.setResizable(false);
-            editNhanKhau.setVisible(true);
+            EditNhanKhau temp = new EditNhanKhau(chungMinhThu);
+            temp.setLocationRelativeTo(null);
+            temp.setResizable(false);
+            temp.setVisible(true);
+            if (temp.getjRadioBHYT_YES().isSelected()) {
+                temp.getjTFMaTheBHYT().setEnabled(true);
+            }
+            if (temp.getjRadioBHYT_NO().isSelected()) {
+                temp.getjTFMaTheBHYT().setEnabled(false);
+            }
         }
     }//GEN-LAST:event_jButtonSuaNhanKhauActionPerformed
 
