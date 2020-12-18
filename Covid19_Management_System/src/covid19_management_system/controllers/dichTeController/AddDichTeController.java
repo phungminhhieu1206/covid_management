@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class AddDichTeController {
     MY_CONNECTION my_connection = new MY_CONNECTION();
     
+    // xet xem có nhân khẩu với CMT kia không ?
     public boolean searchInFromCMT(String chungMinhThu) {
         PreparedStatement preparedStatement;
         String query = "SELECT * FROM `nhan_khau` WHERE `chungMinhThu`=?";

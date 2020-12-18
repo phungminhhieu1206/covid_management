@@ -5,11 +5,15 @@
  */
 package covid19_management_system.views;
 
+import covid19_management_system.controllers.cachlyController.ShowTableCachLyController;
 import covid19_management_system.views.CachLy.AddCachLy;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -20,6 +24,7 @@ public class CachLyManage extends javax.swing.JFrame {
     /**
      * Creates new form CachLyManage
      */
+    ShowTableCachLyController showTableCachLyController = new ShowTableCachLyController();
     public CachLyManage() {
         initComponents();
         this.setTitle("Quản lý thông tin khai báo cách ly y tế");
@@ -35,6 +40,23 @@ public class CachLyManage extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void settingTableShowCachLy() {
+//        jTableKhaiCachLy.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+//        jTableKhaiCachLy.getColumnModel().getColumn(0).setPreferredWidth(1);
+//        jTableKhaiCachLy.getColumnModel().getColumn(1).setPreferredWidth(115);
+//        jTableKhaiCachLy.getColumnModel().getColumn(2).setPreferredWidth(50);
+//        jTableKhaiCachLy.getColumnModel().getColumn(3).setPreferredWidth(20);
+//        jTableKhaiCachLy.getColumnModel().getColumn(4).setPreferredWidth(150);
+//        jTableKhaiCachLy.getColumnModel().getColumn(5).setPreferredWidth(50);
+//        jTableKhaiCachLy.getColumnModel().getColumn(6).setPreferredWidth(50);
+//        jTableKhaiDichTe.getColumnModel().getColumn(7).setPreferredWidth(20);
+//        jTableKhaiDichTe.getColumnModel().getColumn(8).setPreferredWidth(20);
+//        jTableKhaiDichTe.getColumnModel().getColumn(9).setPreferredWidth(170);
+//        jTableKhaiDichTe.getColumnModel().getColumn(10).setPreferredWidth(170);
+
+        jTableKhaiCachLy.setRowHeight(30);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,17 +71,21 @@ public class CachLyManage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jTFSearchByCMT = new javax.swing.JTextField();
+        jButtonSearchCachLy = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jButtonShowInfoCachLy = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableKhaiCachLy = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonAddCachLy = new javax.swing.JButton();
+        jButtonEditCachLy = new javax.swing.JButton();
+        jButtonDeleteCachLy = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jButtonXemChiTiet = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +99,7 @@ public class CachLyManage extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(255, 255, 255)
+                .addGap(566, 566, 566)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -87,189 +113,296 @@ public class CachLyManage extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFSearchByCMT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("TÌM KIẾM");
+        jButtonSearchCachLy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonSearchCachLy.setText("TÌM KIẾM");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("TÌM KIẾM THEO CMT:");
+
+        jButtonShowInfoCachLy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonShowInfoCachLy.setText("SHOW ALL");
+        jButtonShowInfoCachLy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShowInfoCachLyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(269, 269, 269)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFSearchByCMT, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addComponent(jButtonSearchCachLy)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonShowInfoCachLy)
+                .addContainerGap(341, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTFSearchByCMT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearchCachLy)
+                    .addComponent(jLabel2)
+                    .addComponent(jButtonShowInfoCachLy))
+                .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 204, 204));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jTableKhaiCachLy.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jTableKhaiCachLy.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jPanel5.setBackground(new java.awt.Color(255, 204, 204));
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("THÊM MỚI");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+            },
+            new String [] {
+                "ID", "Họ và tên", "Ngày sinh", "Giới tính", "Địa chỉ", "Số điện thoại", "Ngày khai", "TxCovid", "Từ vùng dịch", "Triệu chứng", "Bệnh"
             }
-        });
+        )
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("SỬA");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        // make the jtable cells not edittable
+        {public boolean isCellEditTable(int row, int column){
+            return false;
+        }}
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton4.setText("XÓA");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+    );
+    jTableKhaiCachLy.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    jTableKhaiCachLy.setGridColor(new java.awt.Color(255, 255, 0));
+    jTableKhaiCachLy.setRowHeight(25);
+    jTableKhaiCachLy.setSelectionBackground(new java.awt.Color(0, 102, 51));
+    jTableKhaiCachLy.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTableKhaiCachLyMouseClicked(evt);
+        }
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            jTableKhaiCachLyMouseEntered(evt);
+        }
+    });
+    jScrollPane1.setViewportView(jTableKhaiCachLy);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Nhập mã hộ khẩu:");
+    javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+    jPanel4.setLayout(jPanel4Layout);
+    jPanel4Layout.setHorizontalGroup(
+        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 0, Short.MAX_VALUE)
+        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+                .addContainerGap()))
+    );
+    jPanel4Layout.setVerticalGroup(
+        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 532, Short.MAX_VALUE)
+        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addContainerGap()))
+    );
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    jPanel5.setBackground(new java.awt.Color(255, 204, 204));
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton5.setText("SHOW");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+    jButtonAddCachLy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButtonAddCachLy.setText("THÊM MỚI");
+    jButtonAddCachLy.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButtonAddCachLyActionPerformed(evt);
+        }
+    });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+    jButtonEditCachLy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButtonEditCachLy.setText("SỬA");
+    jButtonEditCachLy.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButtonEditCachLyActionPerformed(evt);
+        }
+    });
+
+    jButtonDeleteCachLy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButtonDeleteCachLy.setText("XÓA");
+    jButtonDeleteCachLy.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButtonDeleteCachLyActionPerformed(evt);
+        }
+    });
+
+    jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jLabel3.setText("Nhập mã hộ khẩu:");
+
+    jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+    jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButton5.setText("SHOW");
+    jButton5.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton5ActionPerformed(evt);
+        }
+    });
+
+    jButtonXemChiTiet.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jButtonXemChiTiet.setText("CHI TIẾT");
+    jButtonXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButtonXemChiTietActionPerformed(evt);
+        }
+    });
+
+    javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+    jPanel5.setLayout(jPanel5Layout);
+    jPanel5Layout.setHorizontalGroup(
+        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel5Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addComponent(jLabel3)
+                    .addGap(0, 2, Short.MAX_VALUE))
+                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
+        .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGap(22, 22, 22)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jButtonXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 2, Short.MAX_VALUE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton5)
-                .addGap(82, 82, 82))
-        );
+                    .addComponent(jButtonAddCachLy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonEditCachLy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDeleteCachLy, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    jPanel5Layout.setVerticalGroup(
+        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGap(73, 73, 73)
+            .addComponent(jButtonAddCachLy)
+            .addGap(18, 18, 18)
+            .addComponent(jButtonEditCachLy)
+            .addGap(18, 18, 18)
+            .addComponent(jButtonDeleteCachLy)
+            .addGap(18, 18, 18)
+            .addComponent(jButtonXemChiTiet)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3)
+            .addGap(18, 18, 18)
+            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(jButton5)
+            .addGap(116, 116, 116))
+    );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
+    );
+    jPanel1Layout.setVerticalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
+    );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        AddCachLy addCachLy = new AddCachLy();
-        addCachLy.setLocationRelativeTo(null);
-        addCachLy.setResizable(false);
-        addCachLy.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButtonAddCachLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCachLyActionPerformed
+        jTFSearchByCMT.setText("");
+        AddCachLy temp = new AddCachLy();
+        temp.setLocationRelativeTo(null);
+        temp.setResizable(false);
+        temp.setVisible(true);
+        
+        temp.getjButtonAddCachLy().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                temp.addNewCachLy();
+                
+//                settingTableShowCachLy();
+//                showTableCachLyController.showCachLy(jTableKhaiCachLy);
+            }
+        });
+    }//GEN-LAST:event_jButtonAddCachLyActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonEditCachLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditCachLyActionPerformed
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonEditCachLyActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonDeleteCachLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCachLyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonDeleteCachLyActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButtonShowInfoCachLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowInfoCachLyActionPerformed
+//        jTFSearchByCMT.setText("");
+//        this.settingTableShowDichTe();
+//        showTableDichTeController.showDichTe(jTableKhaiDichTe);
+    }//GEN-LAST:event_jButtonShowInfoCachLyActionPerformed
+
+    private void jTableKhaiCachLyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableKhaiCachLyMouseClicked
+//        DefaultTableModel model = (DefaultTableModel) jTableKhaiDichTe.getModel();
+//        int rowIndex = jTableKhaiDichTe.getSelectedRow();
+//        // display data
+//        int ID = 0;
+//        ID = (int) model.getValueAt(rowIndex, 0);
+//        //        jTFSearchByCMT.setText(model.getValueAt(rowIndex, 0).toString());
+//        String chungMinhThu = showTableNhanKhauController.searchCMTByID(ID).trim();
+//        jTFSearchByCMT.setText(chungMinhThu);
+    }//GEN-LAST:event_jTableKhaiCachLyMouseClicked
+
+    private void jTableKhaiCachLyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableKhaiCachLyMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableKhaiCachLyMouseEntered
+
+    private void jButtonXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXemChiTietActionPerformed
+        //        if (jTFSearchByCMT.getText().isEmpty()){
+            //            JOptionPane.showMessageDialog(rootPane, "Chọn nhân khẩu muốn xem chi tiết", "Warning", JOptionPane.WARNING_MESSAGE);
+            //        } else {
+            //            String chungMinhThu = jTFSearchByCMT.getText().trim();
+            //            InfoNhanKhau infoNhanKhau = new InfoNhanKhau(chungMinhThu);
+            //            infoNhanKhau.setLocationRelativeTo(null);
+            //            infoNhanKhau.setResizable(false);
+            //            infoNhanKhau.setVisible(true);
+            //        }
+    }//GEN-LAST:event_jButtonXemChiTietActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,11 +440,13 @@ public class CachLyManage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonAddCachLy;
+    private javax.swing.JButton jButtonDeleteCachLy;
+    private javax.swing.JButton jButtonEditCachLy;
+    private javax.swing.JButton jButtonSearchCachLy;
+    private javax.swing.JButton jButtonShowInfoCachLy;
+    private javax.swing.JButton jButtonXemChiTiet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -320,7 +455,9 @@ public class CachLyManage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFSearchByCMT;
+    private javax.swing.JTable jTableKhaiCachLy;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

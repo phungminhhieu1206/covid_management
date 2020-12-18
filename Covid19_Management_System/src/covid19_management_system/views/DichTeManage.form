@@ -208,7 +208,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="514" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="527" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -288,7 +288,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButtonXemChiTiet" min="-2" pref="109" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButtonAddDichTe" alignment="0" max="32767" attributes="0"/>
                               <Component id="jButtonEditDichTe" alignment="0" max="32767" attributes="0"/>
                               <Component id="jButtonDeleteDichTe" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
@@ -300,8 +300,8 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="jButtonAddDichTe" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonEditDichTe" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -320,7 +320,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="jButtonAddDichTe">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="1"/>
@@ -328,7 +328,7 @@
                 <Property name="text" type="java.lang.String" value="TH&#xca;M M&#x1eda;I"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAddDichTeActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEditDichTe">
