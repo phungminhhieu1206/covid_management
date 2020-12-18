@@ -11,6 +11,8 @@ import covid19_management_system.controllers.nhankhauController.DeleteNhanKhauCo
 import covid19_management_system.controllers.nhankhauController.ShowTableNhanKhauController;
 import covid19_management_system.views.DichTe.AddDichTe;
 import covid19_management_system.views.DichTe.EditDichTe;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -357,10 +359,21 @@ public class DichTeManage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        AddDichTe addDichTe = new AddDichTe();
-        addDichTe.setLocationRelativeTo(null);
-        addDichTe.setResizable(false);
-        addDichTe.setVisible(true);
+        jTFSearchByCMT.setText("");
+        AddDichTe temp = new AddDichTe();
+        temp.setLocationRelativeTo(null);
+        temp.setResizable(false);
+        temp.setVisible(true);
+        
+        temp.getjButtonAddDichTe().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                temp.addNewDichTe();
+                
+                settingTableShowDichTe();
+                showTableDichTeController.showDichTe(jTableKhaiDichTe);
+            }
+        });
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonEditDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditDichTeActionPerformed

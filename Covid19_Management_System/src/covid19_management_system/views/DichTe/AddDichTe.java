@@ -6,6 +6,7 @@
 package covid19_management_system.views.DichTe;
 
 import covid19_management_system.controllers.dichTeController.AddDichTeController;
+import covid19_management_system.controllers.dichTeController.ShowTableDichTeController;
 import covid19_management_system.controllers.nhankhauController.EditNhanKhauController;
 import covid19_management_system.models.DichTeModel;
 import covid19_management_system.models.NhanKhauModel;
@@ -24,6 +25,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -41,11 +43,12 @@ public class AddDichTe extends javax.swing.JFrame {
 
     private int ID;
 
-    ButtonGroup bgCheckBHYT = new ButtonGroup();
+    ButtonGroup checkBHYT = new ButtonGroup();
     ButtonGroup bgTXCovid = new ButtonGroup();
     ButtonGroup bgTuVungDich = new ButtonGroup();
     AddDichTeController addDichTeController = new AddDichTeController();
     EditNhanKhauController editNhanKhauController = new EditNhanKhauController();
+    ShowTableDichTeController showTableDichTeController = new ShowTableDichTeController();
 
     public AddDichTe() {
         initComponents();
@@ -53,8 +56,8 @@ public class AddDichTe extends javax.swing.JFrame {
         this.setEnableFields(false);
 
         // set group radio button
-        bgCheckBHYT.add(jRadioBHYT_YES);
-        bgCheckBHYT.add(jRadioBHYT_NO);
+        checkBHYT.add(jRadioBHYT_YES);
+        checkBHYT.add(jRadioBHYT_NO);
         bgTXCovid.add(jRadioTXCovid_YES);
         bgTXCovid.add(jRadioTXCovid_NO);
         bgTuVungDich.add(jRadioTuVungDich_YES);
@@ -72,6 +75,48 @@ public class AddDichTe extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    public void clearAllFields() {
+        jTFHoVaTen.setText(null);
+        jTFChungMinhThu.setText(null);
+        // date
+        jDateCNgaySinh.setDate(new Date());
+        // combobox
+        jCoBoxGioiTinh.setSelectedIndex(0);
+        jTFQuocTich.setText(null);
+        jTFSoDienThoai.setText(null);
+        jTFEmail.setText(null);
+        jTFDiaChi.setText(null);
+        // radio
+        checkBHYT.clearSelection();
+        jTFMaTheBHYT.setText(null);
+
+        // date
+        jDateCNgayKhaiDichTe.setDate(new Date());
+        // radio
+        bgTXCovid.clearSelection();
+        bgTuVungDich.clearSelection();
+
+        jCheckBoxTC1.setSelected(false);
+        jCheckBoxTC2.setSelected(false);
+        jCheckBoxTC3.setSelected(false);
+        jCheckBoxTC4.setSelected(false);
+        jCheckBoxTC5.setSelected(false);
+        jCheckBoxTC6.setSelected(false);
+        jCheckBoxTC7.setSelected(false);
+        jCheckBoxTC8.setSelected(false);
+        jCheckBoxTC9.setSelected(false);
+
+        jCheckBoxBenh1.setSelected(false);
+        jCheckBoxBenh2.setSelected(false);
+        jCheckBoxBenh3.setSelected(false);
+        jCheckBoxBenh4.setSelected(false);
+        jCheckBoxBenh5.setSelected(false);
+        jCheckBoxBenh6.setSelected(false);
+        jCheckBoxBenh7.setSelected(false);
+        jCheckBoxBenh8.setSelected(false);
+        jCheckBoxBenh9.setSelected(false);
     }
 
     // first set enable->false:
@@ -994,6 +1039,18 @@ public class AddDichTe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddDichTeActionPerformed
+
+    }//GEN-LAST:event_jButtonAddDichTeActionPerformed
+
+    public JButton getjButtonAddDichTe() {
+        return jButtonAddDichTe;
+    }
+
+    public void setjButtonAddDichTe(JButton jButtonAddDichTe) {
+        this.jButtonAddDichTe = jButtonAddDichTe;
+    }
+
+    public void addNewDichTe() {
         if (jTFHoVaTen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Chưa hiện thông tin nhân khẩu\nNhập CMT để thực hiện tìm kiểm trước !", "Warning", JOptionPane.WARNING_MESSAGE);
         }
@@ -1025,6 +1082,8 @@ public class AddDichTe extends javax.swing.JFrame {
                     if (addDichTeController.addDichTe(dichTeModel)) {
                         this.addTrieuChung(ID);
                         this.addBenh(ID);
+                        this.clearAllFields();
+                        this.setEnableFields(false);
 
                         JOptionPane.showMessageDialog(rootPane, "Thêm mới thành công!", "Infomation", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -1035,9 +1094,7 @@ public class AddDichTe extends javax.swing.JFrame {
                 }
             }
         }
-
-
-    }//GEN-LAST:event_jButtonAddDichTeActionPerformed
+    }
 
     // check cac gia tri duoc nhap vao form
     private boolean validateValueInForm() {
@@ -1226,46 +1283,53 @@ public class AddDichTe extends javax.swing.JFrame {
                 if (temp.getjTFShowCMT().getText().isEmpty()) {
                     JOptionPane.showMessageDialog(rootPane, "Lựa chọn nhân khẩu từ bảng trước !", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    jTFChungMinhThu.setText(chungMinhThu.trim());
+                    // check cmt đã khai báo dịch tễ hay chưa ?
+                    int ID;
+                    ID = editNhanKhauController.searchIDFromCMT(chungMinhThu);
+//                    System.out.println(ID);
+                    if (showTableDichTeController.checkIdDichTe(ID)) {
+                        JOptionPane.showMessageDialog(rootPane, "Nhân khẩu có CMT: " + chungMinhThu + " đã khai báo dịch tễ !\nChọn nhân khẩu khác để khai báo dịch tễ.", "Infomation", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        jTFChungMinhThu.setText(chungMinhThu.trim());
 
-                    temp.dispose();
+                        temp.dispose();
 
-                    if (JOptionPane.showConfirmDialog(null, "Tìm thấy. Có muốn thực hiện khai báo dịch tễ\nvới nhân khẩu có CMT: " + chungMinhThu + " không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
-                        NhanKhauModel nhanKhauModel = new NhanKhauModel();
-                        nhanKhauModel = editNhanKhauController.searchAllInfoNhanKhau(chungMinhThu);
-                        jTFChungMinhThu.setBackground(Color.GRAY);
-                        jTFChungMinhThu.setEditable(false);
-                        jTFHoVaTen.setText(nhanKhauModel.getHoTen().trim());
-                        jTFHoVaTen.setBackground(Color.gray);
-                        // date db to form
-                        try {
-                            Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(nhanKhauModel.getNgaySinh().toString());
-                            jDateCNgaySinh.setDate(dateIn);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(AddDichTe.class.getName()).log(Level.SEVERE, null, ex);
+                        if (JOptionPane.showConfirmDialog(null, "Tìm thấy. Có muốn thực hiện khai báo dịch tễ\nvới nhân khẩu có CMT: " + chungMinhThu + " không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
+                            NhanKhauModel nhanKhauModel = new NhanKhauModel();
+                            nhanKhauModel = editNhanKhauController.searchAllInfoNhanKhau(chungMinhThu);
+                            jTFChungMinhThu.setBackground(Color.GRAY);
+                            jTFChungMinhThu.setEditable(false);
+                            jTFHoVaTen.setText(nhanKhauModel.getHoTen().trim());
+                            jTFHoVaTen.setBackground(Color.gray);
+                            // date db to form
+                            try {
+                                Date dateIn = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(nhanKhauModel.getNgaySinh().toString());
+                                jDateCNgaySinh.setDate(dateIn);
+                            } catch (ParseException ex) {
+                                Logger.getLogger(AddDichTe.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            // combobox
+                            jCoBoxGioiTinh.setSelectedIndex(nhanKhauModel.getGioiTinh());
+                            jTFQuocTich.setText(nhanKhauModel.getQuocTich().trim());
+                            jTFSoDienThoai.setText(nhanKhauModel.getSoDienThoai().trim());
+                            jTFEmail.setText(nhanKhauModel.getEmail().trim());
+                            jTFDiaChi.setText(nhanKhauModel.getDiaChi().trim());
+                            // radio
+                            jRadioBHYT_YES.setEnabled(true);
+                            jRadioBHYT_NO.setEnabled(true);
+                            if (nhanKhauModel.getCheckBHYT() == 1) {
+                                jRadioBHYT_YES.setSelected(true);
+                            } else if (nhanKhauModel.getCheckBHYT() == 0) {
+                                jRadioBHYT_NO.setSelected(true);
+                            }
+                            jTFMaTheBHYT.setText(nhanKhauModel.getMaTheBHYT().trim());
+                            jRadioBHYT_YES.setEnabled(false);
+                            jRadioBHYT_NO.setEnabled(false);
+
+                            setEnableDichTeFields(true);
                         }
-                        // combobox
-                        jCoBoxGioiTinh.setSelectedIndex(nhanKhauModel.getGioiTinh());
-                        jTFQuocTich.setText(nhanKhauModel.getQuocTich().trim());
-                        jTFSoDienThoai.setText(nhanKhauModel.getSoDienThoai().trim());
-                        jTFEmail.setText(nhanKhauModel.getEmail().trim());
-                        jTFDiaChi.setText(nhanKhauModel.getDiaChi().trim());
-                        // radio
-                        jRadioBHYT_YES.setEnabled(true);
-                        jRadioBHYT_NO.setEnabled(true);
-                        if (nhanKhauModel.getCheckBHYT() == 1) {
-                            jRadioBHYT_YES.setSelected(true);
-                        } else if (nhanKhauModel.getCheckBHYT() == 0) {
-                            jRadioBHYT_NO.setSelected(true);
-                        }
-                        jTFMaTheBHYT.setText(nhanKhauModel.getMaTheBHYT().trim());
-                        jRadioBHYT_YES.setEnabled(false);
-                        jRadioBHYT_NO.setEnabled(false);
-
-                        setEnableDichTeFields(true);
                     }
                 }
-
             }
         });
 

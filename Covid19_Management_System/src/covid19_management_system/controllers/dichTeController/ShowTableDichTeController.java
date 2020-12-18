@@ -385,4 +385,23 @@ public class ShowTableDichTeController {
         return benh;
     }
 
+    // check IDNhanKhau có trong dich_te không ?
+    
+    public boolean checkIdDichTe(int IDNhanKhau) {
+        PreparedStatement preparedStatement;
+        String query = "SELECT * FROM `dich_te` WHERE `id_person`=?";
+        try {
+            preparedStatement = my_connection.createConnection().prepareStatement(query);
+            preparedStatement.setInt(1, IDNhanKhau);
+            try {
+                if (preparedStatement.executeQuery().next()) {
+                    return true;
+                }
+            } catch (SQLException e) {}
+        } catch (SQLException ex) {
+            Logger.getLogger(ShowTableDichTeController.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return false;
+    }
 }
