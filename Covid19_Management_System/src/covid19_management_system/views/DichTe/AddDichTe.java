@@ -19,6 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -1050,7 +1051,7 @@ public class AddDichTe extends javax.swing.JFrame {
         this.jButtonAddDichTe = jButtonAddDichTe;
     }
 
-    public void addNewDichTe() {
+    public void addNewDichTe() throws SQLException {
         if (jTFHoVaTen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Chưa hiện thông tin nhân khẩu\nNhập CMT để thực hiện tìm kiểm trước !", "Warning", JOptionPane.WARNING_MESSAGE);
         }
@@ -1108,7 +1109,7 @@ public class AddDichTe extends javax.swing.JFrame {
         return true;
     }
 
-    public void addTrieuChung(int idPerson) {
+    public void addTrieuChung(int idPerson) throws SQLException {
         if (jCheckBoxTC1.isSelected()) {
             addDichTeController.addTrieuChung(idPerson, 1);
         }
@@ -1138,7 +1139,7 @@ public class AddDichTe extends javax.swing.JFrame {
         }
     }
 
-    public void addBenh(int idPerson) {
+    public void addBenh(int idPerson) throws SQLException {
         if (jCheckBoxBenh1.isSelected()) {
             addDichTeController.addBenh(idPerson, 1);
         }
@@ -1271,9 +1272,13 @@ public class AddDichTe extends javax.swing.JFrame {
 
     private void jButtonShowInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowInfoActionPerformed
         ShowInfoAllNhanKhau temp = new ShowInfoAllNhanKhau();
+        temp.setTitle("Thông tin các nhân khẩu trong tổ dân phố");
         temp.setLocationRelativeTo(null);
         temp.setResizable(false);
         temp.setVisible(true);
+        // sửa
+        String query = "SELECT `ID`, `chungMinhThu`, `hoTen`, `ngaySinh`, `gioiTinh`, `diaChi`, `soDienThoai` FROM `nhan_khau` WHERE 1";
+        temp.getShowTableNhanKhauController().showNhanKhauWithStr(temp.getjTableNhanKhau(), query.trim());
 
         temp.getjTableNhanKhau().addMouseListener(new MouseAdapter() {
             @Override
@@ -1362,41 +1367,6 @@ public class AddDichTe extends javax.swing.JFrame {
             return false;
         }
         return true;
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddDichTe().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

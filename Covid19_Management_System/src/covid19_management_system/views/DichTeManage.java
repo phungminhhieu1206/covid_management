@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -364,12 +367,16 @@ public class DichTeManage extends javax.swing.JFrame {
         temp.setLocationRelativeTo(null);
         temp.setResizable(false);
         temp.setVisible(true);
-        
+
         temp.getjButtonAddDichTe().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                temp.addNewDichTe();
-                
+                try {
+                    temp.addNewDichTe();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DichTeManage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 settingTableShowDichTe();
                 showTableDichTeController.showDichTe(jTableKhaiDichTe);
             }
@@ -377,15 +384,30 @@ public class DichTeManage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddDichTeActionPerformed
 
     private void jButtonEditDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditDichTeActionPerformed
-        if (jTFSearchByCMT.getText().isEmpty()){
+        if (jTFSearchByCMT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Chọn khai báo dịch tễ muốn chỉnh sửa", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             String chungMinhThu = jTFSearchByCMT.getText().trim();
-            EditDichTe editDichTe = new EditDichTe(chungMinhThu);
-            editDichTe.setSize(1188, 628);
-            editDichTe.setLocationRelativeTo(null);
-            editDichTe.setResizable(false);
-            editDichTe.setVisible(true);
+            jTFSearchByCMT.setText("");
+            EditDichTe temp = new EditDichTe(chungMinhThu);
+            temp.setSize(1188, 628);
+            temp.setLocationRelativeTo(null);
+            temp.setResizable(false);
+            temp.setVisible(true);
+
+            temp.getjButtonEditDichTe().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        temp.editDichTe();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(DichTeManage.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    settingTableShowDichTe();
+                    showTableDichTeController.showDichTe(jTableKhaiDichTe);
+                }
+            });
         }
     }//GEN-LAST:event_jButtonEditDichTeActionPerformed
 
@@ -397,16 +419,21 @@ public class DichTeManage extends javax.swing.JFrame {
             int ID = 0;
             ID = deleteNhanKhauController.searchIDFromCMT(chungMinhThu);
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Xác nhận thao tác", JOptionPane.YES_NO_OPTION) == 0) {
-                // xóa
-                if (deleteDichTeController.removeDichTe(ID)) {
-                    deleteDichTeController.removeTrieuChung(ID);
-                    deleteDichTeController.removeBenh(ID);
-                    JOptionPane.showMessageDialog(rootPane, "Successfully !", "Infomation", JOptionPane.INFORMATION_MESSAGE);
-                    this.settingTableShowDichTe();
-                    showTableDichTeController.showDichTe(jTableKhaiDichTe);
-
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Fail !", "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    // xóa
+                    if (deleteDichTeController.removeDichTe(ID)) {
+                        deleteDichTeController.removeTrieuChung(ID);
+                        deleteDichTeController.removeBenh(ID);
+                        JOptionPane.showMessageDialog(rootPane, "Successfully !", "Infomation", JOptionPane.INFORMATION_MESSAGE);
+                        jTFSearchByCMT.setText("");
+                        this.settingTableShowDichTe();
+                        showTableDichTeController.showDichTe(jTableKhaiDichTe);
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Fail !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(DichTeManage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else {

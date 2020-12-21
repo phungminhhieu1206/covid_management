@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -277,7 +278,7 @@ public class EditDichTe extends javax.swing.JFrame {
         }
     }
 
-    public void addTrieuChung(int idPerson) {
+    public void addTrieuChung(int idPerson) throws SQLException {
         if (jCheckBoxTC1.isSelected()) {
             addDichTeController.addTrieuChung(idPerson, 1);
         }
@@ -307,7 +308,7 @@ public class EditDichTe extends javax.swing.JFrame {
         }
     }
 
-    public void addBenh(int idPerson) {
+    public void addBenh(int idPerson) throws SQLException {
         if (jCheckBoxBenh1.isSelected()) {
             addDichTeController.addBenh(idPerson, 1);
         }
@@ -1179,6 +1180,10 @@ public class EditDichTe extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFChungMinhThuKeyReleased
 
     private void jButtonEditDichTeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditDichTeActionPerformed
+
+    }//GEN-LAST:event_jButtonEditDichTeActionPerformed
+
+    public void editDichTe() throws SQLException {
         if (validateValueInForm()) {
             DichTeModel dichTeModel = new DichTeModel();
             dichTeModel.setID_PERSON(this.IDNhanKhau);
@@ -1207,16 +1212,16 @@ public class EditDichTe extends javax.swing.JFrame {
 //                    JOptionPane.showMessageDialog(rootPane, "Dich Te deleted successfully !", "Remove Khai Bao DichTe", JOptionPane.INFORMATION_MESSAGE);
 //                    this.clearFiles();
                         } else {
-                            JOptionPane.showMessageDialog(rootPane, "Fail Delete Trieu Chung & Benh !", "Error", JOptionPane.ERROR_MESSAGE);
+//                            JOptionPane.showMessageDialog(rootPane, "Fail Delete Trieu Chung & Benh !", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the dichTe's id (Number) !", "Dich Te Id Error", JOptionPane.ERROR_MESSAGE);
                     }
-                    
+
                     this.addTrieuChung(IDNhanKhau);
                     this.addBenh(IDNhanKhau);
-
                     JOptionPane.showMessageDialog(rootPane, "Chỉnh sửa thành công!", "Infomation", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Lỗi. Không chỉnh sửa được !", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -1224,11 +1229,18 @@ public class EditDichTe extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage() + " - Enter the person fields number !", "Person Fields Type Number Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jButtonEditDichTeActionPerformed
+    }
+
+    public JButton getjButtonEditDichTe() {
+        return jButtonEditDichTe;
+    }
+
+    public void setjButtonEditDichTe(JButton jButtonEditDichTe) {
+        this.jButtonEditDichTe = jButtonEditDichTe;
+    }
 
     // check cac gia tri duoc nhap vao form
     private boolean validateValueInForm() {
-
         // check null
         if ((!jRadioTXCovid_YES.isSelected() && !jRadioTXCovid_NO.isSelected())
                 || (!jRadioTuVungDich_YES.isSelected() && !jRadioTuVungDich_NO.isSelected())) {
@@ -1271,40 +1283,6 @@ public class EditDichTe extends javax.swing.JFrame {
     private void jCheckBoxTC9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTC9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxTC9ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditDichTe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
