@@ -69,7 +69,6 @@ public class DichTe {
         }
         
     }
-    
     public boolean addBenh(int idPerson, int idBenh) {
 
         PreparedStatement ps;

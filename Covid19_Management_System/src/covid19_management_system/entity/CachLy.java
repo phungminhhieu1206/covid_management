@@ -10,10 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
- * @author HieuPhung
+ * @author winwin.thathang
  */
 public class CachLy {
     
@@ -36,6 +35,7 @@ public class CachLy {
             ps.setInt(4, level);
             ps.setString(5, dateStart);
             ps.setString(6, addressCL);
+     
             ps.setInt(7, roomN);
             ps.setInt(8, bedN);
             ps.setString(9, nameRoommate);
@@ -49,7 +49,7 @@ public class CachLy {
         }
         
     }
-    
+  
     public boolean addTestCovid(int idPerson, String dateTest, int timeTest, int formTest, String addressTest, int resultTest) {
 
         PreparedStatement ps;
@@ -60,13 +60,13 @@ public class CachLy {
             ps = my_connection.createConnection().prepareStatement(addQuery);
             
             // theo thu tu dau ?
-            ps.setInt(1, idPerson);
-            ps.setString(2, dateTest);
-            ps.setInt(3, timeTest);
             ps.setInt(4, formTest);
             ps.setString(5, addressTest);
             ps.setInt(6, resultTest);
-            
+            ps.setInt(1, idPerson);
+            ps.setString(2, dateTest);
+            ps.setInt(3, timeTest);
+       
             return (ps.executeUpdate() > 0);
             
             
@@ -78,7 +78,7 @@ public class CachLy {
     }
     
     /* 2 - Các phương thức DELETE đối tượng cho các bảng*/
-    public boolean removeCachLy(int id) { // id cách ly
+    public boolean removeCachLy(int id) {
 
         PreparedStatement ps;
         String deleteQuery = "DELETE FROM `cach_ly` WHERE `id`=?";
@@ -99,7 +99,7 @@ public class CachLy {
         
     }
     
-    public boolean removeTest(int idPerson) { // id nhân khẩu
+    public boolean removeTest(int idPerson) {
 
         PreparedStatement ps;
         String deleteQuery = "DELETE FROM `test_covid` WHERE `id_person`=?";
@@ -140,8 +140,7 @@ public class CachLy {
         }
         
     }
-    
-    /* Các phương thức chỉnh sửa */
+   
     
     public boolean editCachLy(int idPerson, String ngayKhaiCL, int type, int level, String dateStart, String addressCL, int roomN, int bedN, String nameRoommate) {
 
@@ -172,5 +171,36 @@ public class CachLy {
         }
         
     }
+     public boolean sua(int idPerson, String ngayKhaiCL, int type, int level, String dateStart, String addressCL, int roomN, int bedN, String nameRoommate) {
+
+        PreparedStatement ps;
+        String updateQuery = "UPDATE `cach_ly` SET `ngay_khai_cl`=?,`type`=?,`level`=?,`cl_date_start`=?,`cl_address`=?,`room_num`=?,`bed_num`=?,`roommate_name`=? WHERE `id_person`=?";
+        
+        try {
+            // add client on mysql database
+            ps = my_connection.createConnection().prepareStatement(updateQuery);
+            
+//            // theo thu tu dau ?
+            ps.setString(1, ngayKhaiCL);
+            ps.setInt(2, type);
+            ps.setInt(3, level);
+            ps.setString(4, dateStart);
+            ps.setString(5, addressCL);
+            ps.setInt(6, roomN);
+            ps.setInt(7, bedN);
+            ps.setString(8, nameRoommate);
+            ps.setInt(9, idPerson);
+            
+            return (ps.executeUpdate() > 0);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CachLy.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+        
+    }
+     
     
 }
